@@ -128,8 +128,57 @@ log.info "-\033[91m--------------------------------------------------\033[0m-"
 checkHostname()
 
 /*
- * SET UP WORKFLOW VARIABLES
+ * VERIFY AND SET UP WORKFLOW VARIABLES
  */
+
+if (params.fasta.isEmpty()) {
+    log.error "No input FASTA file has been provided. Please configure the 'fasta' parameter in the custom.config file with a correct path to your input FASTA file"
+    exit 1
+}
+
+if (params.chunk_size.isEmpty()) {
+    log.error "No chunk size has been provided. Please configure the 'chunk_size' parameter in the custom.config file"
+    exit 1
+}
+
+def query_type_list = ['n','p']
+
+if (!query_type_list.contains(params.query_type) || params.query_type.isEmpty()) {
+    log.error "No query type or incorrect value has been entered. Please configure the 'query_type' parameter in the custom.config file to either 'n' (nucleic sequences) or 'p' (protein sequences)"
+    exit 1
+}
+
+def hit_tool_list = ['BLAST','PLAST','diamond']
+
+if (!hit_tool_list.contains(params.hit_tool) || params.hit_tool.isEmpty()) {
+    log.error "No valid tool has been chosen for search against the reference database. Please configure the 'hit_tool' parameter in the custom.config file to either 'PLAST', 'BLAST' or 'diamond'"
+    exit 1
+}
+
+if (params.hit_tool == "PLAST" && params.plast_db.isEmpty()) {
+    log.error "PLAST has been chosen to hit search but no reference database has been provided. Configure it by indicating its path in the 'plast_db' parameter in the custom.config file"
+    exit 1
+}
+
+if (params.hit_tool == "BLAST" && params.blast_db.isEmpty()) {
+    log.error "BLAST has been chosen to hit search but no reference database has been provided. Configure it by indicating its path in the 'blast_db' parameter in the custom.config file"
+    exit 1
+}
+
+if (params.hit_tool == "diamond" && params.blast_db.isEmpty()) {
+    log.error "Diamond has been chosen to hit search but no reference database has been provided. Configure it by indicating its path in the 'diamond_db' parameter in the custom.config file"
+    exit 1
+}  
+
+def annot_type_list = ['bco','full']
+
+if (params.beedeem_annot_enable) {
+  if (!annot_type_list.contains(params.annot_type) || params.annot_type.isEmpty()) {
+        log.error "No annotation type or incorrect value has been entered for BeeDeeM process. Please configure the 'annot_type' parameter in the custom.config file to either 'bco' or 'full'"
+        exit 1
+  }
+}
+
 
 if (workflow.profile.contains('custom')) {
   channel
