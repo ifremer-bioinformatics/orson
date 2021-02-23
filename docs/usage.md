@@ -25,6 +25,9 @@
   * [`--diamond_db`](#--diamond_db)
 * [InterProScan analysis](#interproscan_analysis)
   * [`--iprscan_enable`](#--iprscan_enable)
+* [BeeDeeM annotation](#beedeem_annotation)
+  * [`--beedeem_annot_enable`](#--beedeem_annot_enable)
+  * [`--annot_type`](#--annot_type)
 * [Job resources](#job-resources)
 * [Other command line parameters](#other-command-line-parameters)
   * [`--outdir`](#--outdir)
@@ -178,6 +181,19 @@ This process is optional and use [InterProScan]() to provides functional analysi
 ### `--iprscan_enable`
 
 Set to true or false to active or disable InterProScan analysis. (default = true)
+
+## BeeDeeM annotation 
+
+This process is optional and use [BeeDeeM]() to complete annotation to previously identified hits.
+
+### `--beedeem_annot_enable`
+
+Set to true or false to active or disable BeeDeeM annotation. (default = true)
+
+### `--annot_type`
+
+Type of annotation made by BeeDeeM. Can be "bco" or "full".
+
 
 ## Job resources
 
