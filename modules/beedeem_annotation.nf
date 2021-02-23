@@ -12,6 +12,6 @@ process beedeem_annotation {
 
     script:
     """
-    hit_annotations.sh ${xml} beedeem_annotation.zml ${params.annot_type} beedeem_annotation.cmd >& beedeem_annotation.log 2>&1
+    beedeem_annotation.sh ${xml} beedeem_annotation.zml ${params.annot_type} beedeem_annotation.cmd >& beedeem_annotation.log 2>&1
     """
 }
