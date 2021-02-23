@@ -153,7 +153,7 @@ workflow {
     if (workflow.profile.contains('test')) {
         get_test_data()
         ready = get_test_data.out.test_ready
-        fasta_files = get_test_data.out.query
+        fasta_files = get_test_data.out.query.splitFasta( by: params.chunk_size, file: true)
     } else {
         ready = Channel.value("none")
     }
