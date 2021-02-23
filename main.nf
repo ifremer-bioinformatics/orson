@@ -130,13 +130,15 @@ checkHostname()
  * SET UP WORKFLOW VARIABLES
  */
 
-channel
-  .fromPath( params.fasta )
-  .ifEmpty { error "Cannot find any fasta file matching: ${params.fasta}" }
-  .splitFasta( by: params.chunk_size, file: true)
-  .set { fasta_files }
+if (workflow.profile.contains('custom')) {
+  channel
+    .fromPath( params.fasta )
+    .ifEmpty { error "Cannot find any fasta file matching: ${params.fasta}" }
+    .splitFasta( by: params.chunk_size, file: true)
+    .set { fasta_files }
+}
 
-
+include { get_test_data } from './modules/get_test_data.nf'
 include { plast } from './modules/plast.nf'
 include { blast } from './modules/blast.nf'
 include { diamond } from './modules/diamond.nf'
@@ -148,20 +150,27 @@ include { beedeem_annotation } from './modules/beedeem_annotation.nf'
  */
 
 workflow {
+    if (workflow.profile.contains('test')) {
+        get_test_data()
+        ready = get_test_data.out.test_ready
+        fasta_files = get_test_data.out.query
+    } else {
+        ready = Channel.value("none")
+    }
     if (params.hit_tool == 'PLAST') {
-        plast(fasta_files)
+        plast(ready,fasta_files)
         ch_xml = plast.out.hit_files
     }
     if (params.hit_tool == 'BLAST') {
-        blast(fasta_files)
+        blast(ready,fasta_files)
         ch_xml = blast.out.hit_files
     }
     if (params.hit_tool == 'diamond') {
-        diamond(fasta_files)
+        diamond(ready,fasta_files)
         ch_xml = diamond.out.hit_files
     }
     if (params.iprscan_enable) {
-        interpro(fasta_files)
+        interpro(ready,fasta_files)
     }
     if (params.beedeem_annot_enable) {
         beedeem_annotation(ch_xml)
