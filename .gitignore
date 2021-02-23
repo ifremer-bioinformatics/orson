@@ -2,3 +2,5 @@
 *log*
 .nextflow
 test_dataset/
+results/
+work/
