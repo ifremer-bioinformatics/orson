@@ -22,14 +22,14 @@ CHUNK_OUTPUT_NAME=${CHUNK_NAME}_${OUTPUT_NAME}
 ##################################################################################
 # temporary configuration of the PLAST env in the absence of a singularity image #
 ##################################################################################
-PLAST_PATH=/appli/bioinfo/plast/2.3.3/plast
+PLAST_PATH=/appli/bioinfo/beedeem-tools/2.0.1/plast.sh
 . /etc/profile.d/modules.sh
 module load java/1.8.0_121
 ##################################################################################
 
 # Run PLAST
 if [ "$Q_TYPE" = "n" ]; then
-    CMD="$PLAST_PATH -p plastx -i $QUERY -d $DB -o $CHUNK_OUTPUT_NAME -max-hit-per-query 20 -max-hsp-per-hit 1 -e 1e-3 -a $NCPUS -outfmt 4"
+    CMD="$PLAST_PATH -p plastx -i $QUERY -d $DB -o $CHUNK_OUTPUT_NAME -maxhits 20 -maxhsps 1 -e 1e-3 -a $NCPUS"
     echo $CMD > $LOGCMD
     eval $CMD
 else
