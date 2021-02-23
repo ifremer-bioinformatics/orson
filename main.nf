@@ -212,7 +212,7 @@ def SeBiMERHeader() {
     ${c_blue}   \\   |_  |__) | |\\/| |_  |__)  ${c_reset}
     ${c_blue}  __\\  |__ |__) | |  | |__ |  \\  ${c_reset}
                                             ${c_reset}
-    ${c_yellow}  Annotation workflow (version ${workflow.manifest.version})${c_reset}
+    ${c_yellow}  ORSON workflow (version ${workflow.manifest.version})${c_reset}
                                             ${c_reset}
     ${c_Ipurple}  Homepage: ${workflow.manifest.homePage}${c_reset}
     -${c_red}--------------------------------------------------${c_reset}-
