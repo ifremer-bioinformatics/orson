@@ -119,6 +119,7 @@ if (params.beedeem_annot_enable) {
 } else {
     summary['BeeDeeM annotation'] = "BeeDeeM annotation disabled"
 }
+summary['Annotation type'] = params.annot_type
 
 log.info summary.collect { k,v -> "${k.padRight(18)}: $v" }.join("\n")
 log.info "-\033[91m--------------------------------------------------\033[0m-"
