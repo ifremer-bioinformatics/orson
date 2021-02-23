@@ -1,0 +1,4 @@
+*.pbs
+*log*
+.nextflow
+test_dataset/
