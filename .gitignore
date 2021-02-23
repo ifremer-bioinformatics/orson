@@ -1,6 +1,7 @@
 *.pbs
 *log*
 .nextflow
+test_database/
 test_dataset/
 results/
 work/
