@@ -17,6 +17,8 @@
   * [`--hit_tool`](#--hit_tool)
   * [`--chunk_size`](#--chunk_size)
   * [`--projectName`](#--projectName)
+* [BUSCO analysis](#busco_analysis)
+  * [`--lineage`](#--lineage)
 * [PLAST search](#plast_search)
   * [`--plast_db`](#--plast_db)
 * [BLAST searchl](#blast_search)
@@ -103,7 +105,7 @@ git pull
 
 It's a good idea to specify a pipeline version when running the pipeline on your data. This ensures that a specific version of the pipeline code and software are used when you run your pipeline. If you keep using the same tag, you'll be running the same version of the pipeline, even if there have been changes to the code since.
 
-First, go to the [workflow releases page](xxx) and find the latest version number (eg. `v1.0.0`). Then, you can configure your local orson installation to use your desired version as follows:
+First, go to the [ORSON releases page](https://gitlab.ifremer.fr/bioinfo/orson/-/releases) and find the latest version number (eg. `v1.0.0`). Then, you can configure your local orson installation to use your desired version as follows:
 
 ```bash
 cd orson
@@ -120,7 +122,7 @@ If `-profile` is not specified at all the pipeline will be run locally and expec
 
 * `singularity`
   * A generic configuration profile to be used with [Singularity](http://singularity.lbl.gov/)
-  * Pulls software from DockerHub: [`workflow`](https://hub.docker.com/u/sebimer)
+  * Pulls software from DockerHub: [`ORSON`](https://hub.docker.com/u/sebimer)
 
 Profiles are also available to configure the workflow and can be combined with execution profiles listed above.
 
@@ -150,33 +152,41 @@ Indicates the tool of your choice for the comparison of your sequences to the re
 
 Size of the  FASTA file chunks.
 
+## BUSCO analysis
+
+Before annotation processes, if your input file is a transcriptome, ORSON will perform a completness analysis of your transcriptome using [BUSCO](https://busco.ezlab.org/busco_userguide.html).
+
+### `--lineage`
+
+Path to the [busco lineage](https://busco.ezlab.org/list_of_lineages.html) matching your transcriptome.
+
 ## PLAST search
 
-If you set `--hit_tool` with "PLAST", sequence comparison will be done using [PLAST]().
+If you set `--hit_tool` with "PLAST", sequence comparison will be done using [PLAST](https://doi.org/10.1186/1471-2105-10-329).
 
 ### `--plast_db`
 
-Set the path to the PLAST formatted database of your choice.
+Set the path to the PLAST formatted database of your choice. The reference database must contain protein sequences.
 
 ## BLAST search
 
-If you set `--hit_tool` with "BLAST", sequence comparison will be done using [BLAST]().
+If you set `--hit_tool` with "BLAST", sequence comparison will be done using [BLAST](https://doi.org/10.1016/S0022-2836(05)80360-2).
 
 ### `--blast_db` 
 
-Set the path to the BLAST formatted database of your choice.
+Set the path to the BLAST formatted database of your choice. The reference database must contain protein sequences.
 
 ## diamond search
 
-If you set `--hit_tool` with "diamond", sequence comparison will be done using [diamond]().
+If you set `--hit_tool` with "diamond", sequence comparison will be done using [diamond](https://github.com/bbuchfink/diamond).
 
 ### `--diamond_db`
 
-Set the path to the diamond formatted database of your choice.
+Set the path to the diamond formatted database of your choice. The reference database must contain protein sequences.
 
 ## InterProScan analysis 
 
-This process is optional and use [InterProScan]() to provides functional analysis of proteins by classifying them into families and predicting domains and important sites.
+This process is optional and use [InterProScan](https://doi.org/10.1093/bioinformatics/17.9.847) to provides functional analysis of proteins by classifying them into families and predicting domains and important sites.
 
 ### `--iprscan_enable`
 
@@ -184,7 +194,7 @@ Set to true or false to active or disable InterProScan analysis. (default = true
 
 ## BeeDeeM annotation 
 
-This process is optional and use [BeeDeeM]() to complete annotation to previously identified hits.
+This process is optional and use [BeeDeeM](https://github.com/pgdurand/BeeDeeM) to complete annotation to previously identified hits.
 
 ### `--beedeem_annot_enable`
 
