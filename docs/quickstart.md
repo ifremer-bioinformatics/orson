@@ -27,3 +27,7 @@ In this section, we will describe the most important parameters for each process
 ```hit_tool```: tool used for the sequence comparison ; "PLAST", "BLAST" or "diamond".
 
 ```annot_type```: type of annotation perform made by BeeDeeM ; "bco" or "full".
+
+If you are annotating a transcriptome: 
+
+```lineage```: a BUSCO lineage matching your transcriptome.
