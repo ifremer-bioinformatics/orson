@@ -4,7 +4,8 @@ process plast {
     publishDir "${params.outdir}/${params.report_dirname}", mode: 'copy', pattern : 'plast.cmd', saveAs : { plast_cmd -> "cmd/${task.process}_complete.sh" }
 
     input:
-      path(ready)
+      val(ready)
+      val(buscoOk)
       path(seq)
 
     output:

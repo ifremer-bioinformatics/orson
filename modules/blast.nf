@@ -4,7 +4,8 @@ process blast {
     publishDir "${params.outdir}/${params.report_dirname}", mode: 'copy', pattern : 'blast.cmd', saveAs : { blast_cmd -> "cmd/${task.process}_complete.sh" }
 
     input:
-      path(ready)
+      val(ready)
+      val(buscoOk)
       path(sequences)
 
     output:

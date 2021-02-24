@@ -103,10 +103,14 @@ summary['Script dir'] = workflow.projectDir
 summary['User'] = workflow.userName
 summary['Profile'] = workflow.profile
 summary['FASTA File'] = params.fasta
+summary['Chunk size'] = params.chunk_size
 if (params.query_type == "n") {
     summary['Data Type'] = "Nucleotide"
 } else {
     summary['Data Type'] = "Protein"
+}
+if (params.query_type == "n") {
+    summary['BUSCO'] = "BUSCO activated"
 }
 summary['Tool used'] = params.hit_tool
 if (params.iprscan_enable) {
@@ -136,8 +140,8 @@ if (params.fasta.isEmpty()) {
     exit 1
 }
 
-if (params.chunk_size.isEmpty()) {
-    log.error "No chunk size has been provided. Please configure the 'chunk_size' parameter in the custom.config file"
+if (!params.chunk_size.toString().isNumber()) {
+    log.error "No valid chunk size has been provided. Please configure the 'chunk_size' parameter in the custom.config file"
     exit 1
 }
 
@@ -179,16 +183,28 @@ if (params.beedeem_annot_enable) {
   }
 }
 
-
 if (workflow.profile.contains('custom')) {
+  if (params.query_type.contains('n') && params.lineage.isEmpty()) {
+    log.error "No lineage for BUSCO analysis has been provided. Please configure the 'lineage' parameter in the custom.config file"
+    exit 1
+  }
+
   channel
     .fromPath( params.fasta )
     .ifEmpty { error "Cannot find any fasta file matching: ${params.fasta}" }
     .splitFasta( by: params.chunk_size, file: true)
     .set { fasta_files }
+  
+  if (params.query_type.contains('n')) {
+    channel
+      .fromPath( params.fasta )
+      .ifEmpty { error "Cannot find any fasta file matching: ${params.fasta}" }
+      .set { transcriptome }
+  }
 }
 
 include { get_test_data } from './modules/get_test_data.nf'
+include { busco } from './modules/busco.nf'
 include { plast } from './modules/plast.nf'
 include { blast } from './modules/blast.nf'
 include { diamond } from './modules/diamond.nf'
@@ -205,22 +221,28 @@ workflow {
         ready = get_test_data.out.test_ready
         fasta_files = get_test_data.out.query.splitFasta( by: params.chunk_size, file: true)
     } else {
-        ready = Channel.value("none")
+        ready = channel.value('ready_to_annotate')
+    }
+    if (params.query_type.contains('n')) {
+        busco(ready,transcriptome)
+        busco_ok = busco.out.busco_dir
+    } else {
+        busco_ok = channel.value('workflow_without_busco')
     }
     if (params.hit_tool == 'PLAST') {
-        plast(ready,fasta_files)
+        plast(ready,busco_ok,fasta_files)
         ch_xml = plast.out.hit_files
     }
     if (params.hit_tool == 'BLAST') {
-        blast(ready,fasta_files)
+        blast(ready,busco_ok,fasta_files)
         ch_xml = blast.out.hit_files
     }
     if (params.hit_tool == 'diamond') {
-        diamond(ready,fasta_files)
+        diamond(ready,busco_ok,fasta_files)
         ch_xml = diamond.out.hit_files
     }
     if (params.iprscan_enable) {
-        interpro(ready,fasta_files)
+        interpro(ready,busco_ok,fasta_files)
     }
     if (params.beedeem_annot_enable) {
         beedeem_annotation(ch_xml)
