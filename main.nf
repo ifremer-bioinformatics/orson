@@ -37,6 +37,9 @@ def helpMessage() {
 	-name [str]			Name for the pipeline run. If not specified, Nextflow will automatically generate a random mnemonic.
 	--projectName [str]		Name of the project.
 
+	BUSCO analysis:
+	--lineage [path]		Path to a BUSCO lineage matching your transcriptome.
+
 	PLAST search:
 	--plast_db [path]		Path to a PLAST formatted database.
 
