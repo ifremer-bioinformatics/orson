@@ -138,11 +138,6 @@ checkHostname()
  * VERIFY AND SET UP WORKFLOW VARIABLES
  */
 
-if (params.fasta.isEmpty()) {
-    log.error "No input FASTA file has been provided. Please configure the 'fasta' parameter in the custom.config file with a correct path to your input FASTA file"
-    exit 1
-}
-
 if (!params.chunk_size.toString().isNumber()) {
     log.error "No valid chunk size has been provided. Please configure the 'chunk_size' parameter in the custom.config file"
     exit 1
@@ -197,13 +192,6 @@ if (workflow.profile.contains('custom')) {
     .ifEmpty { error "Cannot find any fasta file matching: ${params.fasta}" }
     .splitFasta( by: params.chunk_size, file: true)
     .set { fasta_files }
-  
-  if (params.query_type.contains('n')) {
-    channel
-      .fromPath( params.fasta )
-      .ifEmpty { error "Cannot find any fasta file matching: ${params.fasta}" }
-      .set { transcriptome }
-  }
 }
 
 include { get_test_data } from './modules/get_test_data.nf'
@@ -227,7 +215,7 @@ workflow {
         ready = channel.value('ready_to_annotate')
     }
     if (params.query_type.contains('n')) {
-        busco(ready,transcriptome)
+        busco(ready,params.fasta)
         busco_ok = busco.out.busco_dir
     } else {
         busco_ok = channel.value('workflow_without_busco')
