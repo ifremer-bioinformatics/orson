@@ -206,9 +206,13 @@ if (workflow.profile.contains('custom')) {
 include { get_test_data } from './modules/get_test_data.nf'
 include { busco } from './modules/busco.nf'
 include { plast } from './modules/plast.nf'
+include { mergeXML_plast } from './modules/plast.nf'
 include { blast } from './modules/blast.nf'
+include { mergeXML_blast } from './modules/blast.nf'
 include { diamond } from './modules/diamond.nf'
+include { mergeXML_diamond } from './modules/diamond.nf'
 include { interpro } from './modules/interpro.nf'
+include { mergeXML_interpro } from './modules/interpro.nf'
 include { beedeem_annotation } from './modules/beedeem_annotation.nf'
 
 /*
@@ -231,18 +235,22 @@ workflow {
     }
     if (params.hit_tool == 'PLAST') {
         plast(ready,busco_ok,fasta_files)
-        ch_xml = plast.out.hit_files
+        mergeXML_plast(plast.out.hit_files.collect())
+        ch_xml = mergeXML_plast.out.merged_plast_xml
     }
     if (params.hit_tool == 'BLAST') {
         blast(ready,busco_ok,fasta_files)
-        ch_xml = blast.out.hit_files
+        mergeXML_blast(blast.out.hit_files.collect())
+        ch_xml = mergeXML_blast.out.merged_blast_xml
     }
     if (params.hit_tool == 'diamond') {
         diamond(ready,busco_ok,fasta_files)
-        ch_xml = diamond.out.hit_files
+        mergeXML_diamond(diamond.out.hit_files.collect())
+        ch_xml = mergeXML_diamond.out.merged_diamond_xml
     }
     if (params.iprscan_enable) {
         interpro(ready,busco_ok,fasta_files)
+        mergeXML_interpro(interpro.out.iprscan_files.collect())
     }
     if (params.beedeem_annot_enable) {
         beedeem_annotation(ch_xml)

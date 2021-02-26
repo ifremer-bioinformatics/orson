@@ -1,6 +1,6 @@
 process beedeem_annotation {
     label 'beedeem'
-    publishDir "${params.outdir}/${params.beedeem_dirname}", mode: 'copy', pattern: '*.zml'
+    publishDir "${params.outdir}/${params.report_dirname}", mode: 'copy', pattern: '*.zml'
     publishDir "${params.outdir}/${params.report_dirname}", mode: 'copy', pattern : 'beedeem_annotation.cmd', saveAs : { beedeem_annotation_cmd -> "cmd/${task.process}_complete.sh" }
 
     input:
