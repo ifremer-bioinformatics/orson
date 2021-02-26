@@ -206,6 +206,7 @@ if (workflow.profile.contains('custom')) {
 include { get_test_data } from './modules/get_test_data.nf'
 include { busco } from './modules/busco.nf'
 include { plast } from './modules/plast.nf'
+include { mergeXML_plast } from './modules/plast.nf'
 include { blast } from './modules/blast.nf'
 include { diamond } from './modules/diamond.nf'
 include { interpro } from './modules/interpro.nf'
@@ -231,6 +232,7 @@ workflow {
     }
     if (params.hit_tool == 'PLAST') {
         plast(ready,busco_ok,fasta_files)
+        mergeXML_plast(plast.out.hit_files.collect())
         ch_xml = plast.out.hit_files
     }
     if (params.hit_tool == 'BLAST') {
