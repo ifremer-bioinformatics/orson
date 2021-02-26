@@ -17,3 +17,18 @@ process interpro {
     interpro.sh ${task.cpus} ${query} ${params.query_type} iprscan_results.xml iprscan.cmd >& iprscan.log 2>&1
     """
 }
+
+process mergeXML_interpro {
+    publishDir "${params.outdir}/${params.report_dirname}", mode: 'copy', pattern: 'merged_iprscan.xml'
+
+    input:
+      path(iprscanXML)
+
+    output:
+      path "merged_iprscan.xml", emit: merged_iprscan_xml
+
+    script:
+    """
+    IPRScanXMLmerge.sh merged_iprscan.xml >& merged_iprscan_xml.log 2>&1
+    """
+}
