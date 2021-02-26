@@ -210,6 +210,7 @@ include { mergeXML_plast } from './modules/plast.nf'
 include { blast } from './modules/blast.nf'
 include { mergeXML_blast } from './modules/blast.nf'
 include { diamond } from './modules/diamond.nf'
+include { mergeXML_diamond } from './modules/diamond.nf'
 include { interpro } from './modules/interpro.nf'
 include { beedeem_annotation } from './modules/beedeem_annotation.nf'
 
@@ -243,7 +244,8 @@ workflow {
     }
     if (params.hit_tool == 'diamond') {
         diamond(ready,busco_ok,fasta_files)
-        ch_xml = diamond.out.hit_files
+        mergeXML_diamond(diamond.out.hit_files.collect())
+        ch_xml = mergeXML_diamond.out.merged_diamond_xml
     }
     if (params.iprscan_enable) {
         interpro(ready,busco_ok,fasta_files)
