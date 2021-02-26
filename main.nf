@@ -114,6 +114,7 @@ if (params.query_type == "n") {
 }
 if (params.query_type == "n") {
     summary['BUSCO'] = "BUSCO activated"
+    summary['BUSCO lineage'] = params.lineage
 }
 summary['Tool used'] = params.hit_tool
 if (params.iprscan_enable) {
@@ -192,6 +193,14 @@ if (workflow.profile.contains('custom')) {
     .ifEmpty { error "Cannot find any fasta file matching: ${params.fasta}" }
     .splitFasta( by: params.chunk_size, file: true)
     .set { fasta_files }
+  
+  if (params.query_type.contains('n')) {
+    channel
+      .from(params.lineage)
+      .splitCsv(sep : ',', strip : true)
+      .flatten()
+      .set { lineage_list }
+  }
 }
 
 include { get_test_data } from './modules/get_test_data.nf'
@@ -215,7 +224,7 @@ workflow {
         ready = channel.value('ready_to_annotate')
     }
     if (params.query_type.contains('n')) {
-        busco(ready,params.fasta)
+        busco(ready,params.fasta,lineage_list)
         busco_ok = busco.out.busco_dir
     } else {
         busco_ok = channel.value('workflow_without_busco')

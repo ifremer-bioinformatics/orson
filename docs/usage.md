@@ -158,7 +158,7 @@ Before annotation processes, if your input file is a transcriptome, ORSON will p
 
 ### `--lineage`
 
-Path to the [busco lineage](https://busco.ezlab.org/list_of_lineages.html) matching your transcriptome.
+Path to the [busco lineage](https://busco.ezlab.org/list_of_lineages.html) matching your transcriptome. Multiple lineages can be set with comma separator.
 
 ## PLAST search
 
