@@ -6,13 +6,14 @@ process busco {
     input:
       val(ready)
       path(transcriptome)
-
+      each(lineageList)
+    
     output:
       path("busco_results*"), emit: busco_dir
       path "busco.cmd", emit: busco_cmd
 
     script:
     """
-    busco.sh ${task.cpus} ${transcriptome} busco_results ${params.lineage} busco.cmd >& busco.log 2>&1
+    busco.sh ${task.cpus} ${transcriptome} busco_results ${lineageList} busco.cmd >& busco.log 2>&1
     """
 }
