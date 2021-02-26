@@ -208,6 +208,7 @@ include { busco } from './modules/busco.nf'
 include { plast } from './modules/plast.nf'
 include { mergeXML_plast } from './modules/plast.nf'
 include { blast } from './modules/blast.nf'
+include { mergeXML_blast } from './modules/blast.nf'
 include { diamond } from './modules/diamond.nf'
 include { interpro } from './modules/interpro.nf'
 include { beedeem_annotation } from './modules/beedeem_annotation.nf'
@@ -233,11 +234,12 @@ workflow {
     if (params.hit_tool == 'PLAST') {
         plast(ready,busco_ok,fasta_files)
         mergeXML_plast(plast.out.hit_files.collect())
-        ch_xml = plast.out.hit_files
+        ch_xml = mergeXML_plast.out.merged_plast_xml
     }
     if (params.hit_tool == 'BLAST') {
         blast(ready,busco_ok,fasta_files)
-        ch_xml = blast.out.hit_files
+        mergeXML_blast(blast.out.hit_files.collect())
+        ch_xml = mergeXML_blast.out.merged_blast_xml
     }
     if (params.hit_tool == 'diamond') {
         diamond(ready,busco_ok,fasta_files)
