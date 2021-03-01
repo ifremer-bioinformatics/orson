@@ -17,7 +17,7 @@ CHUNK_ZML_OUT_NAME=${CHUNK_NAME}_${ZML_OUT}
 ####################################################################################
 # temporary configuration of the BeeDeeM env in the absence of a singularity image #
 ####################################################################################
-ANNOTATE_SCRIPT=/appli/bioinfo/beedeem/latest/annotate.sh
+ANNOTATE_SCRIPT=/appli/bioinfo/beedeem/4.6.0/annotate.sh
 . /etc/profile.d/modules.sh
 module load java/1.8.0_121
 ##################################################################################
