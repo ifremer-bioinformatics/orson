@@ -45,7 +45,7 @@ This workflow comes with documentation about the pipeline, found in the `docs/` 
 
 Here is an overview of the many steps available in samba pipeline:
 
-[ORSON](./docs/images/ORSON_workflow.png)
+![ORSON](docs/images/ORSON_workflow.png)
 
 ## Credits
 
