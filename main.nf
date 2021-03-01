@@ -117,6 +117,15 @@ if (params.query_type == "n") {
     summary['BUSCO lineage'] = params.lineage
 }
 summary['Tool used'] = params.hit_tool
+if(params.hit_tool == 'PLAST') {
+    summary['Ref database'] = params.plast_db 
+}
+if(params.hit_tool == 'BLAST') {
+    summary['Ref database'] = params.blast_db
+}
+if(params.hit_tool == 'diamond') {
+    summary['Ref database'] = params.diamond_db
+}
 if (params.iprscan_enable) {
     summary['IPRScan'] = "InterProScan analysis activated"
 } else {
