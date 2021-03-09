@@ -1,0 +1,15 @@
+Bootstrap : docker
+From: ubuntu:16.04
+
+%post
+        apt-get -y update
+        apt-get -y install wget
+
+        #Installation of diamond 
+        cd /opt
+        wget http://github.com/bbuchfink/diamond/releases/download/v2.0.7/diamond-linux64.tar.gz
+        tar -xzvf diamond-linux64.tar.gz
+        rm -f /opt/*.gz
+
+%environment
+        export PATH="/opt/:$PATH"
