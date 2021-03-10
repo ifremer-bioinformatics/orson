@@ -133,10 +133,10 @@ if (params.iprscan_enable) {
 }
 if (params.beedeem_annot_enable) {
     summary['BeeDeeM annotation'] = "BeeDeeM annotation activated"
+    summary['Annotation type'] = params.annot_type
 } else {
     summary['BeeDeeM annotation'] = "BeeDeeM annotation disabled"
 }
-summary['Annotation type'] = params.annot_type
 
 log.info summary.collect { k,v -> "${k.padRight(18)}: $v" }.join("\n")
 log.info "-\033[91m--------------------------------------------------\033[0m-"
@@ -197,19 +197,33 @@ if (workflow.profile.contains('custom')) {
     exit 1
   }
 
-  channel
-    .fromPath( params.fasta )
-    .ifEmpty { error "Cannot find any fasta file matching: ${params.fasta}" }
-    .splitFasta( by: params.chunk_size, file: true)
-    .set { fasta_files }
-  
   if (params.query_type.contains('n')) {
+    channel
+      .fromPath( params.fasta )
+      .ifEmpty { error "Cannot find any fasta file matching: ${params.fasta}" }
+      .splitFasta( by: params.chunk_size, file: true)
+      .set { fasta_files }
+
     channel
       .from(params.lineage)
       .splitCsv(sep : ',', strip : true)
       .flatten()
       .set { lineage_list }
   }
+
+  if (params.query_type.contains('p')) {
+    def proteome = new File( params.fasta )
+    def reformatproteome = proteome.text.replace('*', '')
+    def proteomeok = new File("proteome_reformatted.fasta")
+    proteomeok.createNewFile()
+    proteomeok.text = reformatproteome
+    channel
+      .from ( proteomeok )
+      .ifEmpty { error "Cannot find any fasta file matching: ${params.fasta}" }
+      .splitFasta( by: params.chunk_size, file: true)
+      .set { fasta_files }
+  }
+
 }
 
 include { get_test_data } from './modules/get_test_data.nf'
