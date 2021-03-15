@@ -252,27 +252,24 @@ workflow {
     }
     if (params.query_type.contains('n')) {
         busco(ready,params.fasta,lineage_list)
-        busco_ok = busco.out.busco_dir
-    } else {
-        busco_ok = channel.value('workflow_without_busco')
     }
     if (params.hit_tool == 'PLAST') {
-        plast(ready,busco_ok,fasta_files)
+        plast(ready,fasta_files)
         mergeXML_plast(plast.out.hit_files.collect())
         ch_xml = mergeXML_plast.out.merged_plast_xml
     }
     if (params.hit_tool == 'BLAST') {
-        blast(ready,busco_ok,fasta_files)
+        blast(ready,fasta_files)
         mergeXML_blast(blast.out.hit_files.collect())
         ch_xml = mergeXML_blast.out.merged_blast_xml
     }
     if (params.hit_tool == 'diamond') {
-        diamond(ready,busco_ok,fasta_files)
+        diamond(ready,fasta_files)
         mergeXML_diamond(diamond.out.hit_files.collect())
         ch_xml = mergeXML_diamond.out.merged_diamond_xml
     }
     if (params.iprscan_enable) {
-        interpro(ready,busco_ok,fasta_files)
+        interpro(ready,fasta_files)
         mergeXML_interpro(interpro.out.iprscan_files.collect())
     }
     if (params.beedeem_annot_enable) {
