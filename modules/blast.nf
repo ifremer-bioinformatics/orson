@@ -5,7 +5,6 @@ process blast {
 
     input:
       val(ready)
-      val(buscoOk)
       path(sequences)
 
     output:
