@@ -5,7 +5,6 @@ process interpro {
 
     input:
       val(ready)
-      val(buscoOk)
       path(query)
 
     output:
