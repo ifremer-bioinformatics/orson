@@ -5,7 +5,6 @@ process diamond {
 
     input:
       val(ready)
-      val(buscoOk)
       path(chunks)
 
     output:
