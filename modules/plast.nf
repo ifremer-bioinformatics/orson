@@ -5,7 +5,6 @@ process plast {
 
     input:
       val(ready)
-      val(buscoOk)
       path(seq)
 
     output:
