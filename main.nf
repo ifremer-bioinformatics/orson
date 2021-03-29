@@ -137,6 +137,11 @@ if (params.beedeem_annot_enable) {
 } else {
     summary['BeeDeeM annotation'] = "BeeDeeM annotation disabled"
 }
+if (params.eggnogmapper_enable) {
+    summary['eggNOG mapper'] = "eggNOG mapper activated"
+} else {
+    summary['eggNOG mapper'] = "eggNOG mapper disabled"
+}
 
 log.info summary.collect { k,v -> "${k.padRight(18)}: $v" }.join("\n")
 log.info "-\033[91m--------------------------------------------------\033[0m-"
@@ -236,6 +241,7 @@ include { diamond } from './modules/diamond.nf'
 include { mergeXML_diamond } from './modules/diamond.nf'
 include { interpro } from './modules/interpro.nf'
 include { mergeXML_interpro } from './modules/interpro.nf'
+include { eggnogmapper } from './modules/eggnogmapper.nf'
 include { beedeem_annotation } from './modules/beedeem_annotation.nf'
 
 /*
@@ -271,6 +277,9 @@ workflow {
     if (params.iprscan_enable) {
         interpro(ready,fasta_files)
         mergeXML_interpro(interpro.out.iprscan_files.collect())
+    }
+    if (params.eggnogmapper_enable) {
+        eggnogmapper(params.fasta)
     }
     if (params.beedeem_annot_enable) {
         beedeem_annotation(ch_xml)
