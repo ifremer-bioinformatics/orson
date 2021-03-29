@@ -52,6 +52,9 @@ def helpMessage() {
 	InterProScan analysis:
 	--iprscan_enable [bool]		Active InterProScan analysis (default = true).
 
+	eggNOG mapper annotation:
+	--eggnogmapper_enable [bool]	Active eggNOG mapper annotation (default = true).
+
 	BeeDeeM annotation:
 	--beedeem_annot_enable [bool]	Active BeeDeeM annotation (default = true).
 	--annot_type [str]		Type of BeeDeeM annoation. Can be "bco" or "full".
