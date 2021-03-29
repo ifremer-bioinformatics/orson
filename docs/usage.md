@@ -27,6 +27,8 @@
   * [`--diamond_db`](#--diamond_db)
 * [InterProScan analysis](#interproscan-analysis)
   * [`--iprscan_enable`](#--iprscan_enable)
+* [eggNOG mapper annotation](#eggnogmapper-annotation)
+  * [`--eggnogmapper_enable`](#--eggnogmapper_enable)
 * [BeeDeeM annotation](#beedeem-annotation)
   * [`--beedeem_annot_enable`](#--beedeem_annot_enable)
   * [`--annot_type`](#--annot_type)
@@ -191,6 +193,14 @@ This process is optional and use [InterProScan](https://doi.org/10.1093/bioinfor
 ### `--iprscan_enable`
 
 Set to true or false to active or disable InterProScan analysis. (default = true)
+
+## eggNOG mapper annotation 
+
+This process is optional and use [eggNOG mapper](https://doi.org/10.1093/molbev/msx148) to provides fast functional annotation of novel sequences. It uses precomputed orthologous groups and phylogenies from the [eggNOG database](http://eggnog5.embl.de) to transfer functional information from fine-grained orthologs only.
+
+### `--eggnogmapper_enable`
+
+Set to true or false to active or disable eggNOG mapper annotation. (default = true)
 
 ## BeeDeeM annotation 
 
