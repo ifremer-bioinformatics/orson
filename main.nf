@@ -38,6 +38,7 @@ def helpMessage() {
 	--projectName [str]		Name of the project.
 
 	Installing annotated sequence banks:
+        --downloadDB_enable [bool]	Active installation of annotated sequence banks (default = false).
 	--db_dir [path]			Path to annotated sequence banks.
 	--bank_list [str]		List of banks to install. Accepted values are: Uniprot_SwissProt, Refseq_protein, Uniprot_TrEMBL.
 
@@ -57,7 +58,7 @@ def helpMessage() {
 	--iprscan_enable [bool]		Active InterProScan analysis (default = true).
 
 	eggNOG mapper annotation:
-	--eggnogmapper_enable [bool]	Active eggNOG mapper annotation (default = true).
+	--eggnogmapper_enable [bool]	Active eggNOG mapper annotation (default = false).
 
 	BeeDeeM annotation:
 	--beedeem_annot_enable [bool]	Active BeeDeeM annotation (default = true).
@@ -125,8 +126,11 @@ if (params.query_type == "n") {
 }
 if (params.downloadDB_enable) {
     summary['DB download'] = "Database download activated"
+    summary['DB path'] = params.db_dir
+    summary['DB installed'] = params.bank_list
 } else {
     summary['DB download'] = "Database already present or provided by the user"
+    summary['DB path'] = params.db_dir
 }
 if(params.hit_tool == 'PLAST') {
     summary['Ref database'] = params.plast_db 
