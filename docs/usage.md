@@ -17,6 +17,9 @@
   * [`--hit_tool`](#--hit_tool)
   * [`--chunk_size`](#--chunk_size)
   * [`--projectName`](#--projectName)
+* [Installing annotated sequence banks](#installing-annotated-sequence-banks)
+  * [`--db_dir`](#--db_dir)
+  * [`--bank_list`](#--bank_list)
 * [BUSCO analysis](#busco-analysis)
   * [`--lineage`](#--lineage)
 * [PLAST search](#plast-search)
@@ -153,6 +156,19 @@ Indicates the tool of your choice for the comparison of your sequences to the re
 ### `--chunk_size`
 
 Size of the  FASTA file chunks.
+
+## Installing annotated sequence banks
+
+### `--db_dir`
+
+Path to annotated sequence banks.
+
+### `--bank_list`
+
+List of banks to install. 
+Accepted values are: Uniprot_SwissProt, Refseq_protein, Uniprot_TrEMBL. 
+This list can be completed with: NCBI_Taxonomy, Enzyme.
+Multiple bank names can be set with comma separator.
 
 ## BUSCO analysis
 
