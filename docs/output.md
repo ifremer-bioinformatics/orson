@@ -32,3 +32,5 @@ https://github.com/pgdurand/BlastViewer/releases/download/v5.5.0/blastviewer-5.5
 iii. If you have activated the BeeDeeM annotation process, you can open the ZML file in BlastViewer. And then import the XML file from the InterProScan analysis.
 
 or if the BeeDeeM annotation has not been activated, the procedure remains the same except that you must open in BlastViewer the XML file resulting from the annotation you have chosen (PLAST, BLAST or diamond) then import the XML file resulting from of the InterProScan analysis.
+
+Please, refer to [this documentation](https://github.com/pgdurand/BlastViewer/wiki/InterProScan-data-import) for further information on how to import BLAST results along with InterProScan predictions.
