@@ -37,6 +37,10 @@ def helpMessage() {
 	-name [str]			Name for the pipeline run. If not specified, Nextflow will automatically generate a random mnemonic.
 	--projectName [str]		Name of the project.
 
+	Installing annotated sequence banks:
+	--db_dir [path]			Path to annotated sequence banks.
+	--bank_list [str]		List of banks to install. Accepted values are: Uniprot_SwissProt, Refseq_protein, Uniprot_TrEMBL.
+
 	BUSCO analysis:
 	--lineage [path]		Path to a BUSCO lineage matching your transcriptome.
 
@@ -119,7 +123,11 @@ if (params.query_type == "n") {
     summary['BUSCO'] = "BUSCO activated"
     summary['BUSCO lineage'] = params.lineage
 }
-summary['Tool used'] = params.hit_tool
+if (params.downloadDB_enable) {
+    summary['DB download'] = "Database download activated"
+} else {
+    summary['DB download'] = "Database already present or provided by the user"
+}
 if(params.hit_tool == 'PLAST') {
     summary['Ref database'] = params.plast_db 
 }
@@ -165,6 +173,11 @@ def query_type_list = ['n','p']
 
 if (!query_type_list.contains(params.query_type) || params.query_type.isEmpty()) {
     log.error "No query type or incorrect value has been entered. Please configure the 'query_type' parameter in the custom.config file to either 'n' (nucleic sequences) or 'p' (protein sequences)"
+    exit 1
+}
+
+if (params.db_dir.isEmpty()) {
+    log.error "No valid path for database location is provided. Please configure the 'db_dir' parameter in the custom.config file."
     exit 1
 }
 
@@ -235,6 +248,7 @@ if (workflow.profile.contains('custom')) {
 }
 
 include { get_test_data } from './modules/get_test_data.nf'
+include { downloadDB } from './modules/downloadDB.nf'
 include { busco } from './modules/busco.nf'
 include { plast } from './modules/plast.nf'
 include { mergeXML_plast } from './modules/plast.nf'
@@ -254,31 +268,34 @@ include { beedeem_annotation } from './modules/beedeem_annotation.nf'
 workflow {
     if (workflow.profile.contains('test')) {
         get_test_data()
-        ready = get_test_data.out.test_ready
         fasta_files = get_test_data.out.query.splitFasta( by: params.chunk_size, file: true)
+    }
+    if (params.downloadDB_enable) {
+        downloadDB()
+        db_ok = downloadDB.out.db_ok
     } else {
-        ready = channel.value('ready_to_annotate')
+        db_ok = channel.value('database_present')
     }
     if (params.query_type.contains('n')) {
-        busco(ready,params.fasta,lineage_list)
+        busco(params.fasta,lineage_list)
     }
     if (params.hit_tool == 'PLAST') {
-        plast(ready,fasta_files)
+        plast(db_ok,fasta_files)
         mergeXML_plast(plast.out.hit_files.collect())
         ch_xml = mergeXML_plast.out.merged_plast_xml
     }
     if (params.hit_tool == 'BLAST') {
-        blast(ready,fasta_files)
+        blast(db_ok,fasta_files)
         mergeXML_blast(blast.out.hit_files.collect())
         ch_xml = mergeXML_blast.out.merged_blast_xml
     }
     if (params.hit_tool == 'diamond') {
-        diamond(ready,fasta_files)
+        diamond(db_ok,fasta_files)
         mergeXML_diamond(diamond.out.hit_files.collect())
         ch_xml = mergeXML_diamond.out.merged_diamond_xml
     }
     if (params.iprscan_enable) {
-        interpro(ready,fasta_files)
+        interpro(fasta_files)
         mergeXML_interpro(interpro.out.iprscan_files.collect())
     }
     if (params.eggnogmapper_enable) {

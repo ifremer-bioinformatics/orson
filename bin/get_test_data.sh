@@ -7,11 +7,9 @@
 
 args=("$@")
 BASEDIR=${args[0]}
-ready=${args[1]}
-QUERY=${args[2]}
+QUERY=${args[1]}
 
 datadir="$BASEDIR/test_dataset"
-dbdir="$BASEDIR/test_database"
 
 if [ ! -d "$datadir" ] || ([ -d "$datadir" ] && [ ! "$(ls -A $datadir)" ])
 then 
@@ -19,14 +17,7 @@ then
      wget -r -nc -l1 -nH --cut-dirs=6 -A 'query.fa' ftp://ftp.ifremer.fr/ifremer/dataref/bioinfo/sebimer/sequence-set/ORSON/ -P $datadir
 fi
 
-if [ ! -d "$dbdir" ] || ([ -d "$dbdir" ] && [ ! "$(ls -A $dbdir)" ])
+if [ -f "$datadir/query.fa" ]
 then
-    mkdir -p $dbdir
-    wget -r -nc -l2 -nH --cut-dirs=7 -A 'Uniprot_SwissProt*' ftp://ftp.ifremer.fr/ifremer/dataref/bioinfo/sebimer/sequence-set/ORSON/test_database -P $dbdir
-fi
-
-if ([ -f "$datadir/query.fa" ] && [ -f "$dbdir/Uniprot_SwissProtM.pal" ])
-then
-   touch $ready
    ln -s $datadir/query.fa $QUERY
 fi
