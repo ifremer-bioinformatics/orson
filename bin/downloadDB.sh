@@ -9,8 +9,9 @@
 args=("$@")
 DB_DIR=${args[0]}
 WK_DIR=${args[1]}
-DB_OK=${args[2]}
-LOGCMD=${args[3]}
+BANK_LIST=${args[2]}
+DB_OK=${args[3]}
+LOGCMD=${args[4]}
 
 export KL_mirror__path="$DB_DIR"
 mkdir -p $KL_mirror__path
@@ -22,7 +23,8 @@ export KL_JRE_ARGS="-Xms128M -Xmx2048M -Djava.io.tmpdir=$KL_WORKING_DIR -DKL_LOG
 if [ ! -d "$DB_DIR" ] || ([ -d "$DB_DIR" ] && [ ! "$(ls -A $DB_DIR)" ])
 then
     # Download databases
-    CMD="install.sh -desc Enzyme,NCBI_Taxonomy,SwissProt_human"
+    CMD="install.sh -desc $BANK_LIST"
+
     echo $CMD > $LOGCMD
     eval $CMD
 fi
