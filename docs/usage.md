@@ -18,6 +18,7 @@
   * [`--chunk_size`](#--chunk_size)
   * [`--projectName`](#--projectName)
 * [Installing annotated sequence banks](#installing-annotated-sequence-banks)
+  * [`--downloadDB_enable`](#--downloadDB_enable)
   * [`--db_dir`](#--db_dir)
   * [`--bank_list`](#--bank_list)
 * [BUSCO analysis](#busco-analysis)
@@ -159,6 +160,10 @@ Size of the  FASTA file chunks.
 
 ## Installing annotated sequence banks
 
+### `--downloadDB_enable`
+
+Set to true or false to active or disable automated installation of banks. (default = true)
+
 ### `--db_dir`
 
 Path to annotated sequence banks.
@@ -216,7 +221,7 @@ This process is optional and use [eggNOG mapper](https://doi.org/10.1093/molbev/
 
 ### `--eggnogmapper_enable`
 
-Set to true or false to active or disable eggNOG mapper annotation. (default = true)
+Set to true or false to active or disable eggNOG mapper annotation. (default = false)
 
 ## BeeDeeM annotation 
 
