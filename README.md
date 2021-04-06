@@ -53,7 +53,7 @@ To use ORSON, all tools are automatically installed via singularity images. Howe
 
 - For BUSCO, please refer to the tool's documentation to [download the lineage databases](https://busco.ezlab.org/busco_userguide.html#download-and-automated-update)
 - For eggNOG mapper, you need to download the databases according to the [documentation](https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.0#setup). Don't forget to define the `params.eggnog_data_dir` to define the path to your databases. In the future, the databases will be automatically downloaded by the workflow (be careful, you need nodes with internet access and this may take time depending on your connection) 
-- In the query annotation process, a protein database is required. This database must be formatted according to the tool used. PLAST and BLAST use [BLAST formatted databank](https://www.ncbi.nlm.nih.gov/books/NBK279688/). Diamond uses its own format for database, instructions can be found in the [diamond wiki](https://github.com/bbuchfink/diamond/wiki)
+- In the query annotation process, a protein database is required. This database must be formatted according to the tool used. PLAST and BLAST use [BLAST formatted databank](https://www.ncbi.nlm.nih.gov/books/NBK279688/). Diamond uses its own format for database, instructions can be found in the [diamond wiki](https://github.com/bbuchfink/diamond/wiki). Note that the automated installation and formatting of annotated banks can be performed by the workflow. See the [Installing annotated sequence banks](/docs/usage.md#installing-annotated-sequence-banks) section of the usage documentation.
 
   
 ## Credits
