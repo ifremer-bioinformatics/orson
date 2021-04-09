@@ -69,7 +69,7 @@ We welcome contributions to the pipeline. If such case you can do one of the fol
 
 ## Support
 
-For further information or help, don't hesitate to get in touch with the samba developpers: 
+For further information or help, don't hesitate to get in touch with the orson developpers: 
 
 ![sebimer email](assets/sebimer-email.png)
 
