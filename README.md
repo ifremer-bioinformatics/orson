@@ -43,7 +43,7 @@ This workflow comes with documentation about the pipeline, found in the `docs/` 
 4. [Output and how to interpret the results](docs/output.md)
 5. [Troubleshooting](docs/troubleshooting.md)
 
-Here is an overview of the many steps available in samba pipeline:
+Here is an overview of the many steps available in orson pipeline:
 
 ![ORSON](docs/images/ORSON_workflow.png)
 
