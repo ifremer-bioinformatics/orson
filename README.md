@@ -1,6 +1,6 @@
 # **ORSON: workflow for prOteome and tRanScriptome functiOnal aNnotation**.
 
-[![ORSON version](https://img.shields.io/badge/ORSON%20version-beta-red?labelColor=000000)](https://www.nextflow.io/)
+[![ORSON version](https://img.shields.io/badge/ORSON%20version-beta-red?labelColor=000000)](https://gitlab.ifremer.fr/bioinfo/orson)
 [![Nextflow](https://img.shields.io/badge/nextflow-%E2%89%A520.10.0-23aa62.svg?labelColor=000000)](https://www.nextflow.io/)
 [![Run with with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
 [![SeBiMER Docker](https://img.shields.io/badge/docker%20build-SeBiMER-yellow?labelColor=000000)](https://hub.docker.com/u/sebimer)
