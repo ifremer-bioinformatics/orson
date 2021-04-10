@@ -5,7 +5,6 @@ process busco {
     publishDir "${params.outdir}/${params.report_dirname}", mode: 'copy', pattern : 'busco.cmd', saveAs : { busco_cmd -> "cmd/${task.process}_complete.sh" }
 
     input:
-      val(ready)
       path(transcriptome)
       each(lineageList)
     
