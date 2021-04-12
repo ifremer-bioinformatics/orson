@@ -202,7 +202,7 @@ if (params.hit_tool == "BLAST" && params.blast_db.isEmpty()) {
     exit 1
 }
 
-if (params.hit_tool == "diamond" && params.blast_db.isEmpty()) {
+if (params.hit_tool == "diamond" && params.diamond_db.isEmpty()) {
     log.error "Diamond has been chosen to hit search but no reference database has been provided. Configure it by indicating its path in the 'diamond_db' parameter in the custom.config file"
     exit 1
 }  
