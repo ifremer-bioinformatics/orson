@@ -13,7 +13,7 @@ process plast {
 
     script:
     """
-    plast.sh ${task.cpus} ${params.query_type} ${seq} ${params.plast_db} plast_hits.xml plast.cmd >& plast.log 2>&1
+    beedeem-plast.sh ${params.db_dir} ${params.steps_data} ${task.cpus} ${params.query_type} ${seq} ${params.plast_db} plast_hits.xml plast.cmd >& plast.log 2>&1
     """
 }
 

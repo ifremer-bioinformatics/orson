@@ -6,26 +6,34 @@
 ###############################################################################
 
 # envvar used by PLAST logging system: must be unique and thread safe
-export KL_WORKING_DIR="$PWD"
+# export KL_WORKING_DIR="$PWD"
 
 # var settings 
 args=("$@")
-NCPUS=${args[0]}
-Q_TYPE=${args[1]}
-QUERY=${args[2]}
-DB=${args[3]}
-OUTPUT_NAME=${args[4]}
-LOGCMD=${args[5]}
+DB_DIR=${args[0]}
+WK_DIR=${args[1]}
+NCPUS=${args[2]}
+Q_TYPE=${args[3]}
+QUERY=${args[4]}
+DB=${args[5]}
+OUTPUT_NAME=${args[6]}
+LOGCMD=${args[7]}
 CHUNK_NAME=$(basename ${QUERY%.*})
 CHUNK_OUTPUT_NAME=${CHUNK_NAME}_${OUTPUT_NAME}
 
 ##################################################################################
 # temporary configuration of the PLAST env in the absence of a singularity image #
 ##################################################################################
-PLAST_PATH=/appli/bioinfo/beedeem-tools/2.0.1/plast.sh
-. /etc/profile.d/modules.sh
-module load java/1.8.0_121
+#PLAST_PATH=/appli/bioinfo/beedeem-tools/2.0.1/plast.sh
+#. /etc/profile.d/modules.sh
+#module load java/1.8.0_121
 ##################################################################################
+
+export KL_mirror__path=$DB_DIR
+export KL_WORKING_DIR=$WK_DIR
+export KL_JRE_ARGS="-Xms128M -Xmx2048M -Djava.io.tmpdir=$KL_WORKING_DIR -DKL_LOG_TYPE=console"
+
+PLAST_PATH="plast.sh"
 
 # Run PLAST
 if [ "$Q_TYPE" = "n" ]; then
