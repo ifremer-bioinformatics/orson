@@ -5,9 +5,6 @@
 ##                                                                           ##
 ###############################################################################
 
-# envvar used by PLAST logging system: must be unique and thread safe
-# export KL_WORKING_DIR="$PWD"
-
 # var settings 
 args=("$@")
 DB_DIR=${args[0]}
@@ -20,14 +17,6 @@ OUTPUT_NAME=${args[6]}
 LOGCMD=${args[7]}
 CHUNK_NAME=$(basename ${QUERY%.*})
 CHUNK_OUTPUT_NAME=${CHUNK_NAME}_${OUTPUT_NAME}
-
-##################################################################################
-# temporary configuration of the PLAST env in the absence of a singularity image #
-##################################################################################
-#PLAST_PATH=/appli/bioinfo/beedeem-tools/2.0.1/plast.sh
-#. /etc/profile.d/modules.sh
-#module load java/1.8.0_121
-##################################################################################
 
 export KL_mirror__path=$DB_DIR
 export KL_WORKING_DIR=$WK_DIR
