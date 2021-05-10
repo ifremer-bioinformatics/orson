@@ -4,6 +4,7 @@ process interpro {
     publishDir "${params.outdir}/${params.report_dirname}", mode: 'copy', pattern : 'iprscan.cmd', saveAs : { iprscan_cmd -> "cmd/${task.process}_complete.sh" }
 
     input:
+      val(singularity_ok)
       path(query)
 
     output:

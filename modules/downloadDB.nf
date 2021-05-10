@@ -3,9 +3,12 @@ process downloadDB {
 
     publishDir "${params.outdir}/${params.report_dirname}", mode: 'copy', pattern : 'downloadDB.cmd', saveAs : { downloadDB_cmd -> "cmd/${task.process}_complete.sh" }
 
+    input:
+        val(singularity_ok)
+
     output:
-    path "downloadDB.cmd", emit: downloadDB_cmd
-    path "database_present", emit: db_ok
+        path "downloadDB.cmd", emit: downloadDB_cmd
+        path "database_present", emit: db_ok
 
     script:
     """

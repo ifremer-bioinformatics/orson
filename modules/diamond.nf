@@ -4,6 +4,7 @@ process diamond {
     publishDir "${params.outdir}/${params.report_dirname}", mode: 'copy', pattern : 'diamond.cmd', saveAs : { diamond_cmd -> "cmd/${task.process}_complete.sh" }
 
     input:
+      val(singularity_ok)
       val(db_ok)
       path(chunks)
 

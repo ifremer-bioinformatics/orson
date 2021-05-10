@@ -4,6 +4,7 @@ process plast {
     publishDir "${params.outdir}/${params.report_dirname}", mode: 'copy', pattern : 'plast.cmd', saveAs : { plast_cmd -> "cmd/${task.process}_complete.sh" }
 
     input:
+      val(singularity_ok)
       val(db_ok)
       path(seq)
 
@@ -13,7 +14,7 @@ process plast {
 
     script:
     """
-    beedeem-plast.sh ${params.db_dir} ${params.steps_data} ${task.cpus} ${params.query_type} ${seq} ${params.plast_db} plast_hits.xml plast.cmd >& plast.log 2>&1
+    beedeem-plast.sh ${params.db_dir} $PWD ${task.cpus} ${params.query_type} ${seq} ${params.plast_db} plast_hits.xml plast.cmd >& plast.log 2>&1
     """
 }
 
