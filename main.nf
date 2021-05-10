@@ -252,6 +252,7 @@ if (workflow.profile.contains('custom')) {
 }
 
 include { get_test_data } from './modules/get_test_data.nf'
+include { get_singularity_images } from './modules/get_singularity_images.nf'
 include { downloadDB } from './modules/downloadDB.nf'
 include { busco } from './modules/busco.nf'
 include { plast } from './modules/plast.nf'
@@ -274,8 +275,9 @@ workflow {
         get_test_data()
         fasta_files = get_test_data.out.query.splitFasta( by: params.chunk_size, file: true)
     }
+    get_singularity_images()
     if (params.downloadDB_enable) {
-        downloadDB()
+        downloadDB(get_singularity_images.out.singularity_ok)
         db_ok = downloadDB.out.db_ok
     } else {
         db_ok = channel.value('database_present')
@@ -284,22 +286,22 @@ workflow {
         busco(params.fasta,lineage_list)
     }
     if (params.hit_tool == 'PLAST') {
-        plast(db_ok,fasta_files)
+        plast(get_singularity_images.out.singularity_ok,db_ok,fasta_files)
         mergeXML_plast(plast.out.hit_files.collect())
         ch_xml = mergeXML_plast.out.merged_plast_xml
     }
     if (params.hit_tool == 'BLAST') {
-        blast(db_ok,fasta_files)
+        blast(get_singularity_images.out.singularity_ok,db_ok,fasta_files)
         mergeXML_blast(blast.out.hit_files.collect())
         ch_xml = mergeXML_blast.out.merged_blast_xml
     }
     if (params.hit_tool == 'diamond') {
-        diamond(db_ok,fasta_files)
+        diamond(get_singularity_images.out.singularity_ok,db_ok,fasta_files)
         mergeXML_diamond(diamond.out.hit_files.collect())
         ch_xml = mergeXML_diamond.out.merged_diamond_xml
     }
     if (params.iprscan_enable) {
-        interpro(fasta_files)
+        interpro(get_singularity_images.out.singularity_ok,fasta_files)
         mergeXML_interpro(interpro.out.iprscan_files.collect())
     }
     if (params.eggnogmapper_enable) {
