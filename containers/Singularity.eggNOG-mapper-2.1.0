@@ -26,11 +26,11 @@ From: ubuntu:latest
        
 
 	# Download eggNOG-mapper databases
-        #mkdir -p /opt/eggnog-mapper-data
-        #export EGGNOG_DATA_DIR=/opt/eggnog-mapper-data
+        mkdir -p /opt/eggnog-mapper-data
+        export EGGNOG_DATA_DIR=/opt/eggnog-mapper-data
 
-	#download_eggnog_data.py -y -P
+	download_eggnog_data.py -y -P
 
 %environment
 
-#export EGGNOG_DATA_DIR=/opt/eggnog-mapper-data
+export EGGNOG_DATA_DIR=/opt/eggnog-mapper-data
