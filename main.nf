@@ -305,7 +305,7 @@ workflow {
         mergeXML_interpro(interpro.out.iprscan_files.collect())
     }
     if (params.eggnogmapper_enable) {
-        eggnogmapper(params.fasta)
+        eggnogmapper(get_singularity_images.out.singularity_ok,params.fasta)
     }
     if (params.beedeem_annot_enable) {
         beedeem_annotation(ch_xml)

@@ -4,6 +4,7 @@ process eggnogmapper {
     publishDir "${params.outdir}/${params.report_dirname}", mode: 'copy', pattern : 'eggnog-mapper.cmd', saveAs : { eggnogmapper_cmd -> "cmd/${task.process}_complete.sh" }
 
     input:
+      val(singularity_ok)
       path(query)
 
     output:
