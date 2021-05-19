@@ -277,7 +277,7 @@ workflow {
         db_ok = channel.value('database_present')
     }
     if (params.query_type.contains('n')) {
-        busco(params.fasta,lineage_list)
+        busco(get_singularity_images.out.singularity_ok,params.fasta,lineage_list)
     }
     if (params.hit_tool == 'PLAST') {
         plast(get_singularity_images.out.singularity_ok,db_ok,fasta_files)
