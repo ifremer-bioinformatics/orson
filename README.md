@@ -49,13 +49,10 @@ Here is an overview of the many steps available in orson pipeline:
 
 ## Requirements
 
-To use ORSON, all tools are automatically installed via singularity images. However, you must have local access to the databases required for the activated steps:
+To use ORSON, all tools are automatically installed via singularity images. Databases are also automatically download according to user's choice See the [Installing annotated sequence banks](/docs/usage.md#installing-annotated-sequence-banks) section of the usage documentation.
 
-- For BUSCO, please refer to the tool's documentation to [download the lineage databases](https://busco.ezlab.org/busco_userguide.html#download-and-automated-update)
-- For eggNOG mapper, you need to download the databases according to the [documentation](https://github.com/eggnogdb/eggnog-mapper/wiki/eggNOG-mapper-v2.1.0#setup). Don't forget to define the `params.eggnog_data_dir` to define the path to your databases. In the future, the databases will be automatically downloaded by the workflow (be careful, you need nodes with internet access and this may take time depending on your connection) 
-- In the query annotation process, a protein database is required. This database must be formatted according to the tool used. PLAST and BLAST use [BLAST formatted databank](https://www.ncbi.nlm.nih.gov/books/NBK279688/). Diamond uses its own format for database, instructions can be found in the [diamond wiki](https://github.com/bbuchfink/diamond/wiki). Note that the automated installation and formatting of annotated banks can be performed by the workflow. See the [Installing annotated sequence banks](/docs/usage.md#installing-annotated-sequence-banks) section of the usage documentation.
+However, you must have local access to the BUSCO lineage databases. To download them, please refer to the tool's documentation to [download the lineage databases](https://busco.ezlab.org/busco_userguide.html#download-and-automated-update)
 
-  
 ## Credits
 
 ORSON is written by [SeBiMER](https://ifremer-bioinformatics.github.io/), the Bioinformatics Core Facility of [IFREMER](https://wwz.ifremer.fr/en/).
@@ -72,10 +69,3 @@ We welcome contributions to the pipeline. If such case you can do one of the fol
 For further information or help, don't hesitate to get in touch with the orson developpers: 
 
 ![sebimer email](assets/sebimer-email.png)
-
-## Citation
-
-<!-- If you use this workflow for your analysis, please cite it using the following doi: [10.5281/zenodo.XXXXXX](https://doi.org/10.5281/zenodo.XXXXXX) -->
-
-### References 
-
