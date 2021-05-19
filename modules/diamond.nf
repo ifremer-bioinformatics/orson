@@ -14,7 +14,7 @@ process diamond {
 
     script:
     """
-    diamond.sh ${task.cpus} ${params.query_type} ${chunks} ${params.diamond_db} diamond_hits.xml diamond.cmd >& diamond.log 2>&1
+    diamond.sh ${task.cpus} ${params.query_type} ${chunks} ${params.blast_db} diamond_hits.xml diamond.cmd >& diamond.log 2>&1
     """
 }
 

@@ -48,11 +48,8 @@ def helpMessage() {
 	PLAST search:
 	--plast_db [path]		Path to a PLAST formatted database.
 
-	BLAST search:
+	BLAST or diamond search:
 	--blast_db [path]		Path to a BLAST formatted database.
-
-	diamond search:
-	--diamond_db [path]		Path to a diamond formatted database.
 
 	InterProScan analysis:
 	--iprscan_enable [bool]		Active InterProScan analysis (default = true).
@@ -135,11 +132,8 @@ if (params.downloadDB_enable) {
 if(params.hit_tool == 'PLAST') {
     summary['Ref database'] = params.plast_db 
 }
-if(params.hit_tool == 'BLAST') {
+if(params.hit_tool == 'BLAST' || params.hit_tool == 'diamond') {
     summary['Ref database'] = params.blast_db
-}
-if(params.hit_tool == 'diamond') {
-    summary['Ref database'] = params.diamond_db
 }
 if (params.iprscan_enable) {
     summary['IPRScan'] = "InterProScan analysis activated"
@@ -202,8 +196,8 @@ if (params.hit_tool == "BLAST" && params.blast_db.isEmpty()) {
     exit 1
 }
 
-if (params.hit_tool == "diamond" && params.diamond_db.isEmpty()) {
-    log.error "Diamond has been chosen to hit search but no reference database has been provided. Configure it by indicating its path in the 'diamond_db' parameter in the custom.config file"
+if (params.hit_tool == "diamond" && params.blast_db.isEmpty()) {
+    log.error "Diamond has been chosen to hit search but no reference database has been provided. Configure it by indicating its path in the 'blast_db' parameter in the custom.config file"
     exit 1
 }  
 

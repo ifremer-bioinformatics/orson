@@ -25,10 +25,8 @@
   * [`--lineage`](#--lineage)
 * [PLAST search](#plast-search)
   * [`--plast_db`](#--plast_db)
-* [BLAST searchl](#blast_search)
+* [BLAST or diamond search](#blast_diamond_search)
   * [`--blast_db`](#--blast_db)
-* [diamond search](#diamond-search)
-  * [`--diamond_db`](#--diamond_db)
 * [InterProScan analysis](#interproscan-analysis)
   * [`--iprscan_enable`](#--iprscan_enable)
 * [eggNOG mapper annotation](#eggnogmapper-annotation)
@@ -191,21 +189,13 @@ If you set `--hit_tool` with "PLAST", sequence comparison will be done using [PL
 
 Set the path to the PLAST formatted database of your choice. The reference database must contain protein sequences.
 
-## BLAST search
+## BLAST or diamond search
 
-If you set `--hit_tool` with "BLAST", sequence comparison will be done using [BLAST](https://doi.org/10.1016/S0022-2836(05)80360-2).
+If you set `--hit_tool` with "BLAST" or "diamond", sequence comparison will be done using [BLAST](https://doi.org/10.1016/S0022-2836(05)80360-2) or [diamond](https://github.com/bbuchfink/diamond).
 
 ### `--blast_db` 
 
 Set the path to the BLAST formatted database of your choice. The reference database must contain protein sequences.
-
-## diamond search
-
-If you set `--hit_tool` with "diamond", sequence comparison will be done using [diamond](https://github.com/bbuchfink/diamond).
-
-### `--diamond_db`
-
-Set the path to the diamond formatted database of your choice. The reference database must contain protein sequences.
 
 ## InterProScan analysis 
 
