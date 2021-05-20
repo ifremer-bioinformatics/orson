@@ -7,7 +7,7 @@
 
 ## Introduction
 
-The ORSON pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It comes with docker containers making installation trivial and results highly reproducible.
+The ORSON pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It comes with singularity containers making installation trivial and results highly reproducible.
 
 ## Quick Start
 
@@ -51,7 +51,7 @@ Here is an overview of the many steps available in orson pipeline:
 
 To use ORSON, all tools are automatically installed via pre-built singularity images available at [SeBiMER ftp](ftp://ftp.ifremer.fr/ifremer/dataref/bioinfo/sebimer/tools/ORSON/); these images are built from recipes available [here](/containers). 
 
-Databases are also automatically download according to user's choice. See the [Installing annotated sequence banks](/docs/usage.md#installing-annotated-sequence-banks) section of the usage documentation.
+Databases are also automatically download according to user's choice (default: Enzyme, UniProt SwissProt). See the [Installing annotated sequence banks](/docs/usage.md#installing-annotated-sequence-banks) section of the usage documentation.
 
 However, you must have local access to the BUSCO lineage databases. To download them, please refer to the tool's documentation to [download the lineage databases](https://busco.ezlab.org/busco_userguide.html#download-and-automated-update)
 
