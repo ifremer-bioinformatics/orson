@@ -49,7 +49,7 @@ Here is an overview of the many steps available in orson pipeline:
 
 ## Requirements
 
-To use ORSON, all tools are automatically installed via singularity images. Databases are also automatically download according to user's choice See the [Installing annotated sequence banks](/docs/usage.md#installing-annotated-sequence-banks) section of the usage documentation.
+To use ORSON, all tools are automatically installed via pre-built singularity images available at [SeBiMER ftp](ftp://ftp.ifremer.fr/ifremer/dataref/bioinfo/sebimer/tools/ORSON/). Databases are also automatically download according to user's choice. See the [Installing annotated sequence banks](/docs/usage.md#installing-annotated-sequence-banks) section of the usage documentation.
 
 However, you must have local access to the BUSCO lineage databases. To download them, please refer to the tool's documentation to [download the lineage databases](https://busco.ezlab.org/busco_userguide.html#download-and-automated-update)
 
