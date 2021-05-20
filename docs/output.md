@@ -23,10 +23,10 @@ For further analysis, we recommend that you download the most recent [BlastViewe
 
 i. Collect locally on your computer, all the files available from the **`results/[projectName]/03_final_results`** folder using Filezilla for example.
  
-ii. Download [BlastViewer](https://github.com/pgdurand/BlastViewer/releases) on your computer. For example:
+ii. Download [BlastViewer](https://github.com/pgdurand/BlastViewer/releases) by getting the most recent BlastViewer-x.y.z.jar file from the following page:
 
 ```bash
-https://github.com/pgdurand/BlastViewer/releases/download/v5.5.1/blastviewer-5.5.1.jar
+https://github.com/pgdurand/BlastViewer/releases
 ```
 
 iii. If you have activated the BeeDeeM annotation process, you can open the ZML file in BlastViewer. And then import the XML file from the InterProScan analysis.
