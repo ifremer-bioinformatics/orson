@@ -17,16 +17,16 @@ ORSON guides you and simplifies the post-workflow analysis (annotation visualisa
 
 All of these files are available in **`results/[projectName]/03_final_results`**.
 
-For further analysis, we recommend that you download [BlastViewer v5.5.0](https://github.com/pgdurand/BlastViewer) which will allow you to view all the annotation results via a graphical interface.
+For further analysis, we recommend that you download the most recent [BlastViewer-x.y.z.jar file](https://github.com/pgdurand/BlastViewer/releases) which will allow you to view all the annotation results via a graphical interface.
 
 ### How to do ?
 
 i. Collect locally on your computer, all the files available from the **`results/[projectName]/03_final_results`** folder using Filezilla for example.
  
-ii. Download BlastViewer on your computer
+ii. Download [BlastViewer](https://github.com/pgdurand/BlastViewer/releases) on your computer. For example:
 
 ```bash
-https://github.com/pgdurand/BlastViewer/releases/download/v5.5.0/blastviewer-5.5.0.jar
+https://github.com/pgdurand/BlastViewer/releases/download/v5.5.1/blastviewer-5.5.1.jar
 ```
 
 iii. If you have activated the BeeDeeM annotation process, you can open the ZML file in BlastViewer. And then import the XML file from the InterProScan analysis.
