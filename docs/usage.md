@@ -187,7 +187,7 @@ If you set `--hit_tool` with "PLAST", sequence comparison will be done using [PL
 
 ### `--plast_db`
 
-Set the path to the PLAST formatted database of your choice. The reference database must contain protein sequences.
+Set the path to the PLAST formatted database of your choice. The reference database must contain protein sequences. (default = UniProt SwissProt)
 
 ## BLAST or diamond search
 
@@ -195,7 +195,7 @@ If you set `--hit_tool` with "BLAST" or "diamond", sequence comparison will be d
 
 ### `--blast_db` 
 
-Set the path to the BLAST formatted database of your choice. The reference database must contain protein sequences.
+Set the path to the BLAST formatted database of your choice. The reference database must contain protein sequences. (default = UniProt SwissProt)
 
 ## InterProScan analysis 
 
