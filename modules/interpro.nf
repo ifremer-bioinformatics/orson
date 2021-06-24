@@ -28,6 +28,6 @@ process mergeXML_interpro {
 
     script:
     """
-    IPRScanXMLmerge.sh merged_iprscan.xml >& merged_iprscan_xml.log 2>&1
+    IPRScanXMLmerge.sh merged_iprscan.xml ${params.query_type} >& merged_iprscan_xml.log 2>&1
     """
 }
