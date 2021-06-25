@@ -223,7 +223,9 @@ Set to true or false to active or disable BeeDeeM annotation. (default = true)
 
 ### `--annot_type`
 
-Type of annotation to introduce in results. Can be "bco" or "full". Use "bco" to only retrieve biological classifications information (e.g. IDs from Gene Ontology, Enzyme, NCBI Taxonomy, Interpro, Pfam). Use "full" to retrieve full feature tables in addition to biological classifications information.
+Type of annotation to introduce in results. Can be "bco" or "full". Use "bco" to only retrieve biological classifications information (e.g. IDs from Gene Ontology, Enzyme, NCBI Taxonomy, Interpro, Pfam). Use "full" to retrieve full feature tables in addition to biological classifications information. 
+
+Look at [BeeDeeM Annotator documentation](https://pgdurand.gitbook.io/beedeem/utils/cmdline-annotate) for more information.
 
 
 ## Job resources
