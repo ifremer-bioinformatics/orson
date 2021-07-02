@@ -12,6 +12,6 @@ process downloadDB {
 
     script:
     """
-    downloadDB.sh ${params.db_dir} ${params.steps_data} ${params.bank_list} database_present downloadDB.cmd >& downloadDB.log 2>&1
+    downloadDB.sh ${params.db_dir} ${workflow.workDir}/databases ${params.bank_list} database_present downloadDB.cmd >& downloadDB.log 2>&1
     """
 }
