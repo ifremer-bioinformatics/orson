@@ -16,7 +16,6 @@ LOGCMD=${args[4]}
 export KL_mirror__path="$DB_DIR"
 mkdir -p $KL_mirror__path
 export KL_WORKING_DIR="$WK_DIR"
-mkdir -p $KL_WORKING_DIR
 export KL_JRE_ARGS="-Xms128M -Xmx2048M -Djava.io.tmpdir=$KL_WORKING_DIR -DKL_LOG_TYPE=console"
 
 
