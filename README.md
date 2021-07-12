@@ -7,7 +7,9 @@
 
 ## Introduction
 
-The ORSON pipeline is built using [Nextflow](https://www.nextflow.io), a workflow tool to run tasks across multiple compute infrastructures in a very portable manner. It comes with singularity containers making installation trivial and results highly reproducible.
+ORSON combine state-of-the-art tools for annotation processes within a [Nextflow](https://www.nextflow.io) pipeline: sequence similarity search ([PLAST](https://plast.inria.fr/), [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi?CMD=Web&PAGE_TYPE=BlastDocs&DOC_TYPE=Download) or [Diamond](https://github.com/bbuchfink/diamond)), functional annotation retrieval ([BeeDeeM](https://github.com/pgdurand/BeeDeeM)) and functional prediction ([InterProScan](https://interproscan-docs.readthedocs.io/en/latest/HowToDownload.html)). When required, [BUSCO](https://busco.ezlab.org/) completness evaluation and [eggNOG](https://github.com/eggnogdb/eggnog-mapper) Orthogroup annotation can be activated. While ORSON results can be analyzed through the command-line, it also offers the possibility to be compatible with [BlastViewer](https://github.com/pgdurand/BlastViewer/) or [Blast2GO](https://www.biobam.com/blast2go-basic/) graphical tools.
+
+The ORSON pipeline can run tasks across multiple compute infrastructures in a very portable manner. It comes with singularity containers making installation trivial and results highly reproducible.
 
 ## Quick Start
 
