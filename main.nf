@@ -43,6 +43,7 @@ def helpMessage() {
 	--bank_list [str]		List of banks to install. Accepted values are: Uniprot_SwissProt, Refseq_protein, Uniprot_TrEMBL.
 
 	BUSCO analysis:
+	--busco_enable	[bool]		Active BUSCO completness analysis (default = false).
 	--lineage [path]		Path to a BUSCO lineage matching your transcriptome.
 
 	PLAST search:
@@ -117,7 +118,7 @@ if (params.query_type == "n") {
 } else {
     summary['Data Type'] = "Protein"
 }
-if (params.query_type == "n") {
+if (params.query_type == "n" && params.busco_enable) {
     summary['BUSCO'] = "BUSCO activated"
     summary['BUSCO lineage'] = params.lineage
 }
@@ -276,7 +277,7 @@ workflow {
     } else {
         db_ok = channel.value('database_present')
     }
-    if (params.query_type.contains('n')) {
+    if (params.query_type.contains('n') && params.busco_enable) {
         busco(get_singularity_images.out.singularity_ok,params.fasta,lineage_list)
     }
     if (params.hit_tool == 'PLAST') {
