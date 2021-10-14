@@ -22,6 +22,7 @@
   * [`--db_dir`](#--db_dir)
   * [`--bank_list`](#--bank_list)
 * [BUSCO analysis](#busco-analysis)
+  * [`--busco_enable`](#--busco_enable)
   * [`--lineage`](#--lineage)
 * [PLAST search](#plast-search)
   * [`--plast_db`](#--plast_db)
@@ -175,7 +176,11 @@ Multiple bank names can be set with comma separator.
 
 ## BUSCO analysis
 
-Before annotation processes, if your input file is a transcriptome, ORSON will perform a completness analysis of your transcriptome using [BUSCO](https://busco.ezlab.org/busco_userguide.html).
+Before annotation processes, if your input file is a transcriptome, ORSON can perform a completness analysis of your transcriptome using [BUSCO](https://busco.ezlab.org/busco_userguide.html).
+
+### `--busco_enable`
+
+Set to true or false to enable or disable the BUSCO completness analysis of your transcriptome (default = false).
 
 ### `--lineage`
 

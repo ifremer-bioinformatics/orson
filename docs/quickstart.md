@@ -28,6 +28,6 @@ In this section, we will describe the most important parameters for each process
 
 ```annot_type```: type of annotation perform made by BeeDeeM ; "bco" or "full".
 
-If you are annotating a transcriptome: 
+If you are annotating a transcriptome and you have enabled the BUSCO process: 
 
 ```lineage```: a BUSCO lineage matching your transcriptome.
