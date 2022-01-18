@@ -13,11 +13,6 @@ QUERY=${args[2]}
 OUTPUT_NAME=${args[3]}
 LOGCMD=${args[4]}
 
-##########################################################################################
-# temporary configuration of the eggNOG mapper env in the absence of a singularity image #
-##########################################################################################
-. /appli/bioinfo/eggnog-mapper/2.1.0/env.sh
-##################################################################################
 
 # Run eggNOG mapper
 if [ "$Q_TYPE" = "n" ]; then
