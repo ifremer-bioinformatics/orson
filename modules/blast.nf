@@ -14,7 +14,7 @@ process blast {
 
     script:
     """
-    blast.sh ${task.cpus} ${params.query_type} ${sequences} ${params.blast_db} blast_hits.xml blast.cmd >& blast.log 2>&1
+    blast.sh ${task.cpus} ${params.query_type} ${sequences} ${params.blast_db} blast_hits.xml ${params.restricted_search} ${params.restricted_tax_id} blast.cmd >& blast.log 2>&1
     """
 }
 
