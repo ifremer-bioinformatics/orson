@@ -27,6 +27,8 @@
 * [PLAST search](#plast-search)
   * [`--plast_db`](#--plast_db)
 * [BLAST or diamond search](#blast_diamond_search)
+  * [`--restricted_search`](#--restricted_search)
+  * [`--restricted_tax_id`](#--restricted_tax_id)
   * [`--blast_db`](#--blast_db)
 * [InterProScan analysis](#interproscan-analysis)
   * [`--iprscan_enable`](#--iprscan_enable)
@@ -197,6 +199,14 @@ Set the path to the PLAST formatted database of your choice. The reference datab
 ## BLAST or diamond search
 
 If you set `--hit_tool` with "BLAST" or "diamond", sequence comparison will be done using [BLAST](https://doi.org/10.1016/S0022-2836(05)80360-2) or [diamond](https://github.com/bbuchfink/diamond).
+
+### `--restricted_search`
+
+Active BLAST search against a taxonomic restricted nr database. Active only with nr BLAST search (default = false).
+
+### `--restricted_tax_id`
+
+NCBI Taxonomy ID to restrict nr database for restricted BLAST search
 
 ### `--blast_db` 
 
