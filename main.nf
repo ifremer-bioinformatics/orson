@@ -50,6 +50,8 @@ def helpMessage() {
 	--plast_db [path]		Path to a PLAST formatted database.
 
 	BLAST or diamond search:
+	--restricted_search [bool]      Active BLAST search against a taxonomic restricted nr database. Active only with nr BLAST search (default = false).
+	--restricted_tax_id [str]	NCBI Taxonomy ID to restrict nr database for restricted BLAST search 
 	--blast_db [path]		Path to a BLAST formatted database.
 
 	InterProScan analysis:
@@ -252,6 +254,7 @@ include { downloadDB } from './modules/downloadDB.nf'
 include { busco } from './modules/busco.nf'
 include { plast } from './modules/plast.nf'
 include { mergeXML_plast } from './modules/plast.nf'
+include { species_taxids } from './modules/blast.nf'
 include { blast } from './modules/blast.nf'
 include { mergeXML_blast } from './modules/blast.nf'
 include { diamond } from './modules/diamond.nf'
@@ -286,7 +289,13 @@ workflow {
         ch_xml = mergeXML_plast.out.merged_plast_xml
     }
     if (params.hit_tool == 'BLAST') {
-        blast(get_singularity_images.out.singularity_ok,db_ok,fasta_files)
+        if (params.restricted_search) {
+            species_taxids(get_singularity_images.out.singularity_ok)
+            txids = species_taxids.out.txids
+        } else {
+            txids = file(params.restricted_tax_id)
+        }
+        blast(get_singularity_images.out.singularity_ok,db_ok,fasta_files,txids)
         mergeXML_blast(blast.out.hit_files.collect())
         ch_xml = mergeXML_blast.out.merged_blast_xml
     }
