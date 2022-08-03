@@ -21,7 +21,7 @@ CHUNK_OUTPUT_NAME=${CHUNK_NAME}_${OUTPUT_NAME}
 # Run BLAST
 if [ "$Q_TYPE" = "n" ]; then
     if [ "$RESTRICTED_SEARCH" = "true" ]; then
-        CMD="blastx -query $QUERY -db $DB -out $CHUNK_OUTPUT_NAME -evalue 1e-3 -outfmt 5 -max_target_seqs 20 -max_hsps 1 -num_threads $NCPUS -parse_deflines -taxids $RESTRICTED_TAX_ID"
+        CMD="blastx -query $QUERY -db $DB -out $CHUNK_OUTPUT_NAME -evalue 1e-3 -outfmt 5 -max_target_seqs 20 -max_hsps 1 -num_threads $NCPUS -parse_deflines -taxidlist ${RESTRICTED_TAX_ID}"
         echo $CMD > $LOGCMD
         eval $CMD
     else
@@ -31,7 +31,7 @@ if [ "$Q_TYPE" = "n" ]; then
     fi
 else
     if [ "$RESTRICTED_SEARCH" = "true" ]; then
-        CMD="blastp -query $QUERY -db $DB -out $CHUNK_OUTPUT_NAME -evalue 1e-3 -outfmt 5 -max_target_seqs 20 -max_hsps 1 -num_threads $NCPUS -parse_deflines -taxids $RESTRICTED_TAX_ID"
+        CMD="blastp -query $QUERY -db $DB -out $CHUNK_OUTPUT_NAME -evalue 1e-3 -outfmt 5 -max_target_seqs 20 -max_hsps 1 -num_threads $NCPUS -parse_deflines -taxidlist ${RESTRICTED_TAX_ID}"
         echo $CMD > $LOGCMD
         eval $CMD
     else
