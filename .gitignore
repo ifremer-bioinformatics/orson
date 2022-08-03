@@ -1,10 +1,10 @@
 *.pbs
 *log*
 .nextflow
-ifremer.config
 databases
 test_dataset/
 results/
 work/
 proteome_reformatted.fasta
 containers/*.sif
+runORSON.o*
