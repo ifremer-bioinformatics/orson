@@ -1,0 +1,33 @@
+Bootstrap : docker
+From: ubuntu:16.04
+
+%post
+        apt-get -y update
+        apt-get -y install wget
+        apt-get -y install curl
+        apt-get -y install perl
+        apt-get -y install language-pack-en
+
+        #Installation of BLAST
+        cd /opt
+        wget https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.13.0/ncbi-blast-2.13.0+-x64-linux.tar.gz
+        gunzip ncbi-blast-2.13.0+-x64-linux.tar.gz
+        tar -xvf ncbi-blast-2.13.0+-x64-linux.tar
+        rm -f /opt/*.gz /opt/*.tar
+        curl ftp://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/edirect.tar.gz -o edirect.tar.gz -x 134.246.166.26:3128
+        tar -xvzf edirect.tar.gz
+        rm edirect.tar.gz
+        cd edirect
+        curl ftp://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/xtract.Linux.gz -o xtract.Linux.gz -x 134.246.166.26:3128
+        gzip -d xtract.Linux.gz
+        chmod +x xtract.Linux
+        curl ftp://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/transmute.Linux.gz -o transmute.Linux.gz -x 134.246.166.26:3128
+        gzip -d transmute.Linux.gz
+        chmod +x transmute.Linux
+        curl ftp://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/rchive.Linux.gz -o rchive.Linux.gz -x 134.246.166.26:3128
+        gzip -d rchive.Linux.gz
+        chmod +x rchive.Linux
+
+%environment
+        export PATH="/opt/ncbi-blast-2.13.0+/bin:$PATH"
+        export PATH="/opt/edirect:$PATH"
