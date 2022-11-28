@@ -1,0 +1,36 @@
+Bootstrap : docker
+From: ubuntu:latest
+
+%post
+
+	apt-get -y update
+	apt-get -y install wget
+
+	#Installation of Python3
+	apt-get install -y --no-install-recommends python3
+	apt-get -y clean
+	
+	#Installation of pip
+	apt-get install -y  python3-pip
+	pip3 install --no-cache-dir --upgrade pip
+
+        #Installation of BioPython 1.79
+	pip3 install biopython==1.79
+
+	#Installation of psutil 5.9.3
+	pip3 install psutil==5.9.3
+
+
+        #Installation of EggNogMapper
+	pip3 install eggnog-mapper==2.1.9 
+       
+
+	# Download eggNOG-mapper databases
+        mkdir -p /opt/eggnog-mapper-data
+        export EGGNOG_DATA_DIR=/opt/eggnog-mapper-data
+
+	download_eggnog_data.py -y -P
+
+%environment
+
+export EGGNOG_DATA_DIR=/opt/eggnog-mapper-data
