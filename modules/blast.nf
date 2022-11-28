@@ -52,3 +52,23 @@ process mergeXML_blast {
     """
 }
 
+process XmlToTab_blast {
+
+        publishDir "${params.outdir}/${params.blast_dirname}", mode: 'copy', pattern: '*.tab'
+        publishDir "${params.outdir}/${params.report_dirname}", mode: 'copy', pattern: 'merged_blast.tab'
+
+        input:
+                path(blastXML)
+
+        output:
+                path "merged_blast.tab", emit: merged_blast_tab
+
+        script:
+        """
+        blastxml_to_tabular.py ${blastXML} > merged_blast.tab >& merged_blast_tab.log 2>&1
+        """
+
+
+
+}
+

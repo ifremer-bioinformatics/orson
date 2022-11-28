@@ -14,7 +14,7 @@ process diamond {
 
     script:
     """
-    diamond.sh ${task.cpus} ${params.query_type} ${chunks} ${params.blast_db} diamond_hits.xml diamond.cmd >& diamond.log 2>&1
+    diamond.sh ${task.cpus} ${params.query_type} ${chunks} ${params.blast_db} ${params.sensitivity} diamond_hits.xml diamond.cmd >& diamond.log 2>&1
     """
 }
 
@@ -31,4 +31,23 @@ process mergeXML_diamond {
     """
     BlastXMLmerge.py merged_diamond.xml ${diamondXML} >& merged_diamond_xml.log 2>&1
     """
+}
+
+process XmlToTab_diamond {
+
+	publishDir "${params.outdir}/${params.report_dirname}", mode: 'copy', pattern: '*.tab'
+
+	input:
+		path(diamondXML)
+
+	output:
+      		path "merged_diamond.tab", emit: merged_diamond_tab
+
+	script:
+   	"""
+    	blastxml_to_tabular.py ${diamondXML} > merged_diamond.tab 2>&1
+    	"""
+
+
+
 }

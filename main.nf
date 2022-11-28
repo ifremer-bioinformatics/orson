@@ -5,7 +5,7 @@
 ========================================================================================
  Workflow for prOteome and tRanScriptome functiOnal aNnotation.
  #### Homepage / Documentation
- https://gitlab.ifremer.fr/bioinfo/orson
+ https://github.com/ifremer-bioinformatics/xxx
 ----------------------------------------------------------------------------------------
 */
 
@@ -259,8 +259,11 @@ include { blast } from './modules/blast.nf'
 include { mergeXML_blast } from './modules/blast.nf'
 include { diamond } from './modules/diamond.nf'
 include { mergeXML_diamond } from './modules/diamond.nf'
+include { XmlToTab_diamond } from './modules/diamond.nf'
+include { XmlToTab_blast } from './modules/blast.nf'
 include { interpro } from './modules/interpro.nf'
 include { mergeXML_interpro } from './modules/interpro.nf'
+include { mergeTSV_interpro } from './modules/interpro.nf'
 include { eggnogmapper } from './modules/eggnogmapper.nf'
 include { beedeem_annotation } from './modules/beedeem_annotation.nf'
 
@@ -298,15 +301,18 @@ workflow {
         blast(get_singularity_images.out.singularity_ok,db_ok,fasta_files,txids)
         mergeXML_blast(blast.out.hit_files.collect())
         ch_xml = mergeXML_blast.out.merged_blast_xml
+	XmlToTab_blast(ch_xml)
     }
     if (params.hit_tool == 'diamond') {
         diamond(get_singularity_images.out.singularity_ok,db_ok,fasta_files)
         mergeXML_diamond(diamond.out.hit_files.collect())
         ch_xml = mergeXML_diamond.out.merged_diamond_xml
+	XmlToTab_diamond(ch_xml)
     }
     if (params.iprscan_enable) {
         interpro(get_singularity_images.out.singularity_ok,fasta_files)
-        mergeXML_interpro(interpro.out.iprscan_files.collect())
+        mergeXML_interpro(interpro.out.iprscan_files_xml.collect())
+        mergeTSV_interpro(interpro.out.iprscan_files_tsv.collect())
     }
     if (params.eggnogmapper_enable) {
         eggnogmapper(get_singularity_images.out.singularity_ok,params.fasta)
