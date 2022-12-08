@@ -53,6 +53,7 @@ def helpMessage() {
 	--restricted_search [bool]      Active BLAST search against a taxonomic restricted nr database. Active only with nr BLAST search (default = false).
 	--restricted_tax_id [str]	NCBI Taxonomy ID to restrict nr database for restricted BLAST search 
 	--blast_db [path]		Path to a BLAST formatted database.
+	--sensitivity [str]     The sensitivity mode for diamond analyse only. Values accepted : ['fast','mid-sensitive','sensitive','more-sensitive','very-sensitive','ultra-sensitive'] (defalut = 'fast').
 
 	InterProScan analysis:
 	--iprscan_enable [bool]		Active InterProScan analysis (default = true).
