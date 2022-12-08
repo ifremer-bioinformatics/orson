@@ -54,7 +54,6 @@ process mergeXML_blast {
 
 process XmlToTab_blast {
 
-        publishDir "${params.outdir}/${params.blast_dirname}", mode: 'copy', pattern: '*.tab'
         publishDir "${params.outdir}/${params.report_dirname}", mode: 'copy', pattern: 'merged_blast.tab'
 
         input:

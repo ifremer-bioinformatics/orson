@@ -35,7 +35,7 @@ process mergeXML_diamond {
 
 process XmlToTab_diamond {
 
-	publishDir "${params.outdir}/${params.report_dirname}", mode: 'copy', pattern: '*.tab'
+	publishDir "${params.outdir}/${params.report_dirname}", mode: 'copy', pattern: 'merged_diamond.tab'
 
 	input:
 		path(diamondXML)
