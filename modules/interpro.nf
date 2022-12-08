@@ -1,6 +1,6 @@
 process interpro {
     label 'interpro'
-    publishDir "${params.outdir}/${params.interpro_dirname}", mode: 'copy', pattern: '*.???'
+    publishDir "${params.outdir}/${params.interpro_dirname}", mode: 'copy', pattern: '{*.xml,*.tsv}'
     publishDir "${params.outdir}/${params.report_dirname}", mode: 'copy', pattern : 'iprscan.cmd', saveAs : { iprscan_cmd -> "cmd/${task.process}_complete.sh" }
 
     input:
