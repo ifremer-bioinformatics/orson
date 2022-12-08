@@ -5,7 +5,7 @@
 ========================================================================================
  Workflow for prOteome and tRanScriptome functiOnal aNnotation.
  #### Homepage / Documentation
- https://github.com/ifremer-bioinformatics/xxx
+ https://gitlab.ifremer.fr/bioinfo/orson
 ----------------------------------------------------------------------------------------
 */
 
