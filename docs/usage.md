@@ -30,6 +30,7 @@
   * [`--restricted_search`](#--restricted_search)
   * [`--restricted_tax_id`](#--restricted_tax_id)
   * [`--blast_db`](#--blast_db)
+  * [`--sensitivity`](#--sensitivity)
 * [InterProScan analysis](#interproscan-analysis)
   * [`--iprscan_enable`](#--iprscan_enable)
 * [eggNOG mapper annotation](#eggnogmapper-annotation)
@@ -211,6 +212,10 @@ NCBI Taxonomy ID to restrict nr database for restricted BLAST search
 ### `--blast_db` 
 
 Set the path to the BLAST formatted database of your choice. The reference database must contain protein sequences. (default = UniProt SwissProt)
+
+### `--sensitivity` 
+
+Set the sensitivity of the analyse for diamond only. Accepted values are : 'fast', 'mid-sensitive', 'sensitive', 'more-sensitive', 'very-sensitive' and 'ultra-sensitive'. (default = fast)
 
 ## InterProScan analysis 
 
