@@ -44,7 +44,7 @@ def helpMessage() {
 
 	BUSCO analysis:
 	--busco_enable	[bool]		Active BUSCO completness analysis (default = false).
-	--lineage [path]		Path to a BUSCO lineage matching your transcriptome.
+	--lineage [path]		Path to a BUSCO lineage matching your transcriptome or proteome.
 
 	PLAST search:
 	--plast_db [path]		Path to a PLAST formatted database.
@@ -120,7 +120,7 @@ if (params.query_type == "n") {
 } else {
     summary['Data Type'] = "Protein"
 }
-if (params.query_type == "n" && params.busco_enable) {
+if (params.busco_enable) {
     summary['BUSCO'] = "BUSCO activated"
     summary['BUSCO lineage'] = params.lineage
 }
@@ -214,7 +214,7 @@ if (params.beedeem_annot_enable) {
 }
 
 if (workflow.profile.contains('custom')) {
-  if params.lineage.isEmpty()) {
+  if (params.lineage.isEmpty()) {
     log.error "No lineage for BUSCO analysis has been provided. Please configure the 'lineage' parameter in the custom.config file"
     exit 1
   }
@@ -280,7 +280,7 @@ workflow {
     } else {
         db_ok = channel.value('database_present')
     }
-    if params.busco_enable) {
+    if (params.busco_enable) {
         busco(get_singularity_images.out.singularity_ok,params.fasta,lineage_list)
     }
     if (params.hit_tool == 'PLAST') {
