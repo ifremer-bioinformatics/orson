@@ -11,9 +11,18 @@ NCPUS=${args[0]}
 TRANSCRIPTOME=${args[1]}
 OUTPUT=${args[2]}
 LINEAGE=${args[3]}
-LOGCMD=${args[4]}
+QTYPE=${args[4]}
+LOGCMD=${args[5]}
+
+if $QTYPE == 'n';
+then
+        ANALYSE="transcriptome"
+else
+        ANALYSE="proteome"
+fi
+
 
 # Run BUSCO
-CMD="busco -i $TRANSCRIPTOME -o $OUTPUT -l $LINEAGE -m transcriptome -c $NCPUS --offline"
+CMD="busco -i $TRANSCRIPTOME -o $OUTPUT -l $LINEAGE -m $ANALYSE -c $NCPUS "
 echo $CMD > $LOGCMD
 eval $CMD

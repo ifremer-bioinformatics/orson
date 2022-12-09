@@ -214,7 +214,7 @@ if (params.beedeem_annot_enable) {
 }
 
 if (workflow.profile.contains('custom')) {
-  if (params.query_type.contains('n') && params.lineage.isEmpty()) {
+  if params.lineage.isEmpty()) {
     log.error "No lineage for BUSCO analysis has been provided. Please configure the 'lineage' parameter in the custom.config file"
     exit 1
   }
@@ -280,7 +280,7 @@ workflow {
     } else {
         db_ok = channel.value('database_present')
     }
-    if (params.query_type.contains('n') && params.busco_enable) {
+    if params.busco_enable) {
         busco(get_singularity_images.out.singularity_ok,params.fasta,lineage_list)
     }
     if (params.hit_tool == 'PLAST') {

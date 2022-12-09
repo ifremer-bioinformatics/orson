@@ -16,6 +16,6 @@ process busco {
 
     script:
     """
-    busco.sh ${task.cpus} ${transcriptome} busco_results ${lineageList} busco.cmd >& busco.log 2>&1
+    busco.sh ${task.cpus} ${transcriptome} busco_results ${lineageList} ${params.query_type} busco.cmd >& busco.log 2>&1
     """
 }
