@@ -225,7 +225,9 @@ if (workflow.profile.contains('custom')) {
       .ifEmpty { error "Cannot find any fasta file matching: ${params.fasta}" }
       .splitFasta( by: params.chunk_size, file: true)
       .set { fasta_files }
+  }
 
+  if (params.busco_enable) {
     channel
       .from(params.lineage)
       .splitCsv(sep : ',', strip : true)
