@@ -53,6 +53,7 @@ def helpMessage() {
 	--restricted_search [bool]      Active BLAST search against a taxonomic restricted nr database. Active only with nr BLAST search (default = false).
 	--restricted_tax_id [str]	NCBI Taxonomy ID to restrict nr database for restricted BLAST search 
 	--blast_db [path]		Path to a BLAST formatted database.
+	--sensitivity [str]     The sensitivity mode for diamond analyse only. Values accepted : ['fast','mid-sensitive','sensitive','more-sensitive','very-sensitive','ultra-sensitive'] (defalut = 'fast').
 
 	InterProScan analysis:
 	--iprscan_enable [bool]		Active InterProScan analysis (default = true).
@@ -219,6 +220,15 @@ if (workflow.profile.contains('custom')) {
     exit 1
   }
 
+def diamond_sensitivity_list = ['fast','mid-sensitive','sensitive','more-sensitive','very-sensitive','ultra-sensitive']
+if (params.hit_tools == "diamond"){
+    if (!diamond_sensitivity_list.contains(params.sensitivity) || params.sensitivity.isEmpty()) {
+        log.error "No valid sensitivity has been chosen. Please configure the 'sensitivity' parameter in the custom.config file to either 'fast','mid-sensitive','sensitive','more-sensitive','very-sensitive' or 'ultra-sensitive'"
+        exit 1
+    }
+}
+
+
   if (params.query_type.contains('n')) {
     channel
       .fromPath( params.fasta )
@@ -259,8 +269,11 @@ include { blast } from './modules/blast.nf'
 include { mergeXML_blast } from './modules/blast.nf'
 include { diamond } from './modules/diamond.nf'
 include { mergeXML_diamond } from './modules/diamond.nf'
+include { XmlToTab_diamond } from './modules/diamond.nf'
+include { XmlToTab_blast } from './modules/blast.nf'
 include { interpro } from './modules/interpro.nf'
 include { mergeXML_interpro } from './modules/interpro.nf'
+include { mergeTSV_interpro } from './modules/interpro.nf'
 include { eggnogmapper } from './modules/eggnogmapper.nf'
 include { beedeem_annotation } from './modules/beedeem_annotation.nf'
 
@@ -298,15 +311,18 @@ workflow {
         blast(get_singularity_images.out.singularity_ok,db_ok,fasta_files,txids)
         mergeXML_blast(blast.out.hit_files.collect())
         ch_xml = mergeXML_blast.out.merged_blast_xml
+	XmlToTab_blast(ch_xml)
     }
     if (params.hit_tool == 'diamond') {
         diamond(get_singularity_images.out.singularity_ok,db_ok,fasta_files)
         mergeXML_diamond(diamond.out.hit_files.collect())
         ch_xml = mergeXML_diamond.out.merged_diamond_xml
+	XmlToTab_diamond(ch_xml)
     }
     if (params.iprscan_enable) {
         interpro(get_singularity_images.out.singularity_ok,fasta_files)
-        mergeXML_interpro(interpro.out.iprscan_files.collect())
+        mergeXML_interpro(interpro.out.iprscan_files_xml.collect())
+        mergeTSV_interpro(interpro.out.iprscan_files_tsv.collect())
     }
     if (params.eggnogmapper_enable) {
         eggnogmapper(get_singularity_images.out.singularity_ok,params.fasta)

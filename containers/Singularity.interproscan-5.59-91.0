@@ -9,7 +9,7 @@ From: biocorecrg/debian-perlbrew-pyenv3-java:buster
 	# Configure build
 	
 	# Which release of IPRscan to install?	
-	IPSCAN_VERSION=5.51-85.0
+	IPSCAN_VERSION=5.59-91.0
 
 	# Will be used to update interposcan.propeties file and replace "cpu 1" by
 	# "cpu $CPU_FOR_IPRSCAN_USE"
@@ -57,4 +57,4 @@ From: biocorecrg/debian-perlbrew-pyenv3-java:buster
 
 %labels
     Maintainer SeBiMER, IFREMER
-    Version 1.0
+    Version 2.0

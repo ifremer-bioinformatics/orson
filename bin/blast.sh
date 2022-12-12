@@ -19,24 +19,18 @@ CHUNK_NAME=$(basename ${QUERY%.*})
 CHUNK_OUTPUT_NAME=${CHUNK_NAME}_${OUTPUT_NAME}
 
 # Run BLAST
-if [ "$Q_TYPE" = "n" ]; then
-    if [ "$RESTRICTED_SEARCH" = "true" ]; then
-        CMD="blastx -query $QUERY -db $DB -out $CHUNK_OUTPUT_NAME -evalue 1e-3 -outfmt 5 -max_target_seqs 20 -max_hsps 1 -num_threads $NCPUS -parse_deflines -taxidlist ${RESTRICTED_TAX_ID}"
-        echo $CMD > $LOGCMD
-        eval $CMD
-    else
-        CMD="blastx -query $QUERY -db $DB -out $CHUNK_OUTPUT_NAME -evalue 1e-3 -outfmt 5 -max_target_seqs 20 -max_hsps 1 -num_threads $NCPUS -parse_deflines"
-        echo $CMD > $LOGCMD
-        eval $CMD
-    fi
+if [ $Q_TYPE = "n" ]; then
+        ANALYSE="blastx"
 else
-    if [ "$RESTRICTED_SEARCH" = "true" ]; then
-        CMD="blastp -query $QUERY -db $DB -out $CHUNK_OUTPUT_NAME -evalue 1e-3 -outfmt 5 -max_target_seqs 20 -max_hsps 1 -num_threads $NCPUS -parse_deflines -taxidlist ${RESTRICTED_TAX_ID}"
-        echo $CMD > $LOGCMD
-        eval $CMD
-    else
-        CMD="blastp -query $QUERY -db $DB -out $CHUNK_OUTPUT_NAME -evalue 1e-3 -outfmt 5 -max_target_seqs 20 -max_hsps 1 -num_threads $NCPUS -parse_deflines"
-        echo $CMD > $LOGCMD
-        eval $CMD  
-    fi
+        ANALYSE="blastp"
+fi
+
+if [ "$RESTRICTED_SEARCH" = "true" ]; then
+    CMD="$ANALYSE -query $QUERY -db $DB -out $CHUNK_OUTPUT_NAME -evalue 1e-3 -outfmt 5 -max_target_seqs 20 -max_hsps 1 -num_threads $NCPUS -parse_deflines -taxidlist ${RESTRICTED_TAX_ID}"
+    echo $CMD > $LOGCMD
+    eval $CMD
+else
+    CMD="$ANALYSE -query $QUERY -db $DB -out $CHUNK_OUTPUT_NAME -evalue 1e-3 -outfmt 5 -max_target_seqs 20 -max_hsps 1 -num_threads $NCPUS -parse_deflines"
+    echo $CMD > $LOGCMD
+    eval $CMD
 fi
