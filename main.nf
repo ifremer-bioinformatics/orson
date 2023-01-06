@@ -260,6 +260,16 @@ if (params.hit_tool == "diamond"){
 
 }
 
+if (params.hectar_enable) {
+  params.image = "$baseDir/containers/hectar-1.3.sif"
+  if (params.image.isEmpty()) {
+    log.error "No singularity image found for Hectar. Please provide one with the name 'hectar-1.3.sif' in the containers/ directory"
+    exit 1
+  }
+}
+
+
+
 include { get_test_data } from './modules/get_test_data.nf'
 include { get_singularity_images } from './modules/get_singularity_images.nf'
 include { downloadDB } from './modules/downloadDB.nf'
@@ -278,6 +288,7 @@ include { mergeXML_interpro } from './modules/interpro.nf'
 include { mergeTSV_interpro } from './modules/interpro.nf'
 include { eggnogmapper } from './modules/eggnogmapper.nf'
 include { beedeem_annotation } from './modules/beedeem_annotation.nf'
+include { hectar } from './modules/hectar.nf'
 
 /*
  * RUN MAIN WORKFLOW
@@ -331,6 +342,9 @@ workflow {
     }
     if (params.beedeem_annot_enable) {
         beedeem_annotation(ch_xml)
+    }
+    if (params.hectar_enable) {
+        hectar(params.fasta)
     }
 }
 
