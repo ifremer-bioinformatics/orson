@@ -221,7 +221,7 @@ if (workflow.profile.contains('custom')) {
   }
 
 def diamond_sensitivity_list = ['fast','mid-sensitive','sensitive','more-sensitive','very-sensitive','ultra-sensitive']
-if (params.hit_tool == "diamond"){
+if (params.hit_tools == "diamond"){
     if (!diamond_sensitivity_list.contains(params.sensitivity) || params.sensitivity.isEmpty()) {
         log.error "No valid sensitivity has been chosen. Please configure the 'sensitivity' parameter in the custom.config file to either 'fast','mid-sensitive','sensitive','more-sensitive','very-sensitive' or 'ultra-sensitive'"
         exit 1
