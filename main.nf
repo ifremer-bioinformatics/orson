@@ -65,6 +65,8 @@ def helpMessage() {
 	--beedeem_annot_enable [bool]	Active BeeDeeM annotation (default = true).
 	--annot_type [str]		Type of BeeDeeM annoation. Can be "bco" or "full".
 
+    Hectar annotation:
+    --hectar_enable [bool] Active Hectar annotation (default = false).
 	""".stripIndent()
 }
 
