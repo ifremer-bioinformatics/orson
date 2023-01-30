@@ -7,6 +7,6 @@ process hectar {
         path("result_hectar.csv")
     script:
         """
-        hectar.pl --input ${fasta} --output result_hectar.csv --cpu 4 --debug
+        hectar.pl --input ${fasta} --output result_hectar.csv --cpu ${task.cpus}
         """
 }
