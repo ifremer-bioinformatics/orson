@@ -262,7 +262,7 @@ if (params.hit_tool == "diamond"){
 
 }
 
-if (params.hectar_enable) {
+if (params.hectar_enable && params.query_type.contains('p')) {
   params.image = "$baseDir/containers/hectar-1.3.sif"
   if (params.image.isEmpty()) {
     log.error "No singularity image found for Hectar. Please provide one with the name 'hectar-1.3.sif' in the containers/ directory"
