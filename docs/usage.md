@@ -254,7 +254,7 @@ This process is optional and use [Hectar](https://bmcbioinformatics.biomedcentra
 ### `--hectar_enable`
 
 Set to true or false to active or disable Hectar annotation. (default = false)
-If true, the singularity container for Hectar need to be provided with the name "hectar-1.3_.sif" and localized in the `container/` directory.
+If true, the singularity container for Hectar need to be provided with the name "hectar-1.3.sif" and localized in the `container/` directory.
 
 ## Job resources
 
