@@ -16,4 +16,5 @@ then
      touch $SING_IMAGES_OK
 else
      wget -r -nc -l1 -nH --cut-dirs=6 -A '*.sif' ftp://ftp.ifremer.fr/ifremer/dataref/bioinfo/sebimer/tools/ORSON/ -P $container_dir
+     touch $SING_IMAGES_OK
 fi
