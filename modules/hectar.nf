@@ -1,6 +1,6 @@
 process hectar {
     label 'hectar'
-    publishDir "${params.outdir}", mode: 'copy', pattern: '*.csv'
+    publishDir "${params.outdir}/${params.report_dirname}", mode: 'copy', pattern: '*.csv'
     input:
         path(fasta)
     output:
