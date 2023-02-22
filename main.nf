@@ -157,7 +157,11 @@ if (params.eggnogmapper_enable) {
 } else {
     summary['eggNOG mapper'] = "eggNOG mapper disabled"
 }
-
+if (params.hectar_enable) {
+    summary['HECTAR'] = "HECTAR activated"
+} else {
+    summary['HECTAR'] = "HECTAR disabled"
+}
 log.info summary.collect { k,v -> "${k.padRight(18)}: $v" }.join("\n")
 log.info "-\033[91m--------------------------------------------------\033[0m-"
 
