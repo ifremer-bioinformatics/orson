@@ -247,6 +247,14 @@ Type of annotation to introduce in results. Can be "bco" or "full". Use "bco" to
 
 Look at [BeeDeeM Annotator documentation](https://pgdurand.gitbook.io/beedeem/utils/cmdline-annotate) for more information.
 
+## Hectar annotation 
+
+This process is optional and use [Hectar](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-9-393) to complete annotation for heterokonts.
+
+### `--hectar_enable`
+
+Set to true or false to active or disable Hectar annotation. (default = false)
+If true, the singularity container for Hectar need to be provided with the name "hectar-1.3.sif" and localized in the `container/` directory.
 
 ## Job resources
 

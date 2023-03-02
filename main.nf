@@ -65,6 +65,8 @@ def helpMessage() {
 	--beedeem_annot_enable [bool]	Active BeeDeeM annotation (default = true).
 	--annot_type [str]		Type of BeeDeeM annoation. Can be "bco" or "full".
 
+    Hectar annotation:
+    --hectar_enable [bool] Active Hectar annotation (default = false).
 	""".stripIndent()
 }
 
@@ -155,7 +157,11 @@ if (params.eggnogmapper_enable) {
 } else {
     summary['eggNOG mapper'] = "eggNOG mapper disabled"
 }
-
+if (params.hectar_enable) {
+    summary['HECTAR'] = "HECTAR activated"
+} else {
+    summary['HECTAR'] = "HECTAR disabled"
+}
 log.info summary.collect { k,v -> "${k.padRight(18)}: $v" }.join("\n")
 log.info "-\033[91m--------------------------------------------------\033[0m-"
 
@@ -260,6 +266,16 @@ if (params.hit_tool == "diamond"){
 
 }
 
+if (params.hectar_enable && params.query_type.contains('p')) {
+  params.image = "$baseDir/containers/hectar-1.3.sif"
+  if (params.image.isEmpty()) {
+    log.error "No singularity image found for Hectar. Please provide one with the name 'hectar-1.3.sif' in the containers/ directory"
+    exit 1
+  }
+}
+
+
+
 include { get_test_data } from './modules/get_test_data.nf'
 include { get_singularity_images } from './modules/get_singularity_images.nf'
 include { downloadDB } from './modules/downloadDB.nf'
@@ -278,6 +294,7 @@ include { mergeXML_interpro } from './modules/interpro.nf'
 include { mergeTSV_interpro } from './modules/interpro.nf'
 include { eggnogmapper } from './modules/eggnogmapper.nf'
 include { beedeem_annotation } from './modules/beedeem_annotation.nf'
+include { hectar } from './modules/hectar.nf'
 
 /*
  * RUN MAIN WORKFLOW
@@ -331,6 +348,9 @@ workflow {
     }
     if (params.beedeem_annot_enable) {
         beedeem_annotation(ch_xml)
+    }
+    if (params.hectar_enable) {
+        hectar(params.fasta)
     }
 }
 
